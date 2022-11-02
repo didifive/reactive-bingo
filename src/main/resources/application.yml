@@ -1,0 +1,6 @@
+spring:
+  webflux:
+    base-path: /reactive-flashcards
+  data:
+    mongodb:
+      uri: mongodb://reactive-bingo:reactive-bingo@db:27017/reactive-bingo?authSource=admin

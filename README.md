@@ -2,13 +2,10 @@
 
 Criar uma API de jogo de Bingo usando as seguintes tecnologias:
 
-![technology Java](https://img.shields.io/badge/techonolgy-Java-success)
-
-![technology MongoDB](https://img.shields.io/badge/techonolgy-MongoDB-blue)
-
+![technology Java](https://img.shields.io/badge/techonolgy-Java-red)
+![technology MongoDB](https://img.shields.io/badge/techonolgy-MongoDB-green)
 ![techonolgy Spring WebFlux](https://img.shields.io/badge/techonolgy-SpringWebFlux-brightgreen)
-
-![technology Docker](https://img.shields.io/badge/techonolgy-Docker-blue) (opcional)
+![technology Docker](https://img.shields.io/badge/techonolgy-Docker-blue)
 
 ## Requisitos
  * Gerenciar as informações dos jogadores (CRUD) com um find on demand;
@@ -49,3 +46,32 @@ Criar uma API de jogo de Bingo usando as seguintes tecnologias:
    * gerar cartela (POST /rounds/{id}/bingo-card/{playerId})
    * buscar rodadas (GET /rounds)
    * buscar rodada pelo id (GET /rounds/{id})
+
+# Reactive Bingo by Luis Zancanela
+
+As informações acima são para o desafio, abaixo estarão as informações do projeto conforme desenvolvido para cumprir o desafio lançado.
+
+## Configuração
+
+O projeto foi feito utilizando:
+* IDE IntelliJ IDEA Community Edition 2022.1.1.
+* Iniciado com [Spring Initializr] com as configurações e dependências:
+  * Project: Gradle Project
+  * Language: Java
+  * Spring Boot 2.7.5
+  * Packaging: Jar
+  * Java 17
+  * Dependencies:
+    * Spring Data Reactive MongoDB
+    * Embedded MongoDB Database (para teste)
+    * Spring Reactive Web
+    * Java Mail Sender
+    * Validation
+    * Lombok
+
+## Visuais
+![Reactive Bingo Logo](docs/logo.png?raw=true "Reactive Bingo Logo")
+
+
+
+[Spring Initializr]: https://start.spring.io/

@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    command: bash start-dev.sh
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      GRADLE_USER_HOME: /box
+      SPRING_PROFILES_ACTIVE: dev
+    volumes:
+      - .:/reactive-bingo
+      - box:/box
+    depends_on:
+      - db
+    networks:
+      - reactive-net
+  db:
+    image: mongo:5.0.9
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: reactive-bingo
+      MONGO_INITDB_ROOT_PASSWORD: reactive-bingo
+      MONGO_INITDB_DATABASE: reactive-bingo
+    ports:
+      - "27017:27017"
+    networks:
+      - reactive-net
+  box:
+    image: busybox
+    volumes:
+      - /box
+    networks:
+      - reactive-net
+networks:
+  reactive-net:
+    name: custom-net
+volumes:
+  db:
+  box:
