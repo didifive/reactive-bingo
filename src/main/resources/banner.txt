@@ -15,6 +15,6 @@
               █▄▄▄▄▄▄▄█▄▄▄█▄█  █▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█
  
  ==============================================================
- | By Luis Zancanela           | Formação Programação Reativa |
+ | by Luis Zancanela           | Formação Programação Reativa |
  | https://github.com/didifive | com Spring WebFlux - DIO     |
  ==============================================================
