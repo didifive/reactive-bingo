@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,11 +24,15 @@ public record RoundDocument(@Id
                             @Field("updated_at")
                             OffsetDateTime updatedAt) {
 
-    public Boolean isStarted(){
+    @Builder(toBuilder = true)
+    public RoundDocument {
+    }
+
+    public Boolean isStarted() {
         return !drawnNumbers.isEmpty();
     }
 
-    public Boolean hasWinner(){
+    public Boolean hasWinner() {
         return isStarted() &&
                 cards.stream()
                         .anyMatch(card ->
@@ -39,13 +42,10 @@ public record RoundDocument(@Id
                                         .containsAll(card.numbers()));
     }
 
-    public Boolean hasPlayer(String playerId){
+    public Boolean hasPlayer(String playerId) {
         return isStarted() &&
                 cards.stream()
                         .anyMatch(card -> card.playerId().equals(playerId));
     }
-
-    @Builder(toBuilder = true)
-    public RoundDocument {}
 
 }

@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.OffsetDateTime;
-import java.util.Set;
 
 @Document(collection = "players")
 public record PlayerDocument(@Id
@@ -23,6 +22,7 @@ public record PlayerDocument(@Id
                              OffsetDateTime updatedAt) {
 
     @Builder(toBuilder = true)
-    public PlayerDocument {}
+    public PlayerDocument {
+    }
 
 }
