@@ -72,9 +72,9 @@ O projeto foi feito utilizando:
 ## Visuais
 Logotipo do projeto:
 ![Reactive Bingo Logo](docs/logo.png?raw=true "Reactive Bingo Logo")  
-Banner do Spring personalizado: 
-![Spring Banner personalizado](docs/banner-springboot.png?raw=true "Spring Banner personalizado")  
-Diagrama de Classes UML:
+Banner do Spring personalizado:  
+![Spring Banner personalizado](docs/banner-springboot.PNG?raw=true "Spring Banner personalizado")  
+Diagrama de Classes UML:  
 ![UML Class Diagram](docs/uml-diagram.drawio.png?raw=true "UML Class Diagram")  
 
 
