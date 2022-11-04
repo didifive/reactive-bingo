@@ -41,7 +41,7 @@ public record RoundResponseDTO(@JsonProperty("id")
     public Boolean hasPlayer(String playerId) {
         return isStarted() &&
                 cards.stream()
-                        .anyMatch(card -> card.player().id().equals(playerId));
+                        .anyMatch(card -> card.playerId().equals(playerId));
     }
 
     public DrawnNumberDTO getLastDrawnNumber() {

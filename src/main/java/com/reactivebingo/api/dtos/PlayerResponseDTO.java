@@ -2,9 +2,6 @@ package com.reactivebingo.api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.OffsetDateTime;
 
