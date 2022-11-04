@@ -70,7 +70,7 @@ O projeto foi feito utilizando:
     * Lombok
 
 ## Visuais
-Logotipo do projeto:
+Logotipo do projeto:  
 ![Reactive Bingo Logo](docs/logo.png?raw=true "Reactive Bingo Logo")  
 Banner do Spring personalizado:  
 ![Spring Banner personalizado](docs/banner-springboot.PNG?raw=true "Spring Banner personalizado")  
