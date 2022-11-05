@@ -68,8 +68,8 @@ O projeto foi feito utilizando:
     * Java Mail Sender
     * Validation
     * Lombok
-    * mapstruct
-    * 
+    * Mapstruct
+    * OpenApi
 
 ## Visuais
 Logotipo do projeto:  
@@ -78,6 +78,8 @@ Banner do Spring personalizado:
 ![Spring Banner personalizado](docs/banner-springboot.PNG?raw=true "Spring Banner personalizado")  
 Diagrama de Classes UML:  
 ![UML Class Diagram](docs/uml-diagram.drawio.png?raw=true "UML Class Diagram")  
+OpenApi - Swagger:  
+![OpenApi - Swagger](docs/swagger.png?raw=true "OpenApi - Swagger")  
 
 
 [Spring Initializr]: https://start.spring.io/
