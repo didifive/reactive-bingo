@@ -2,10 +2,10 @@
 
 Criar uma API de jogo de Bingo usando as seguintes tecnologias:
 
-![technology Java](https://img.shields.io/badge/techonolgy-Java-red)
-![technology MongoDB](https://img.shields.io/badge/techonolgy-MongoDB-green)
-![techonolgy Spring WebFlux](https://img.shields.io/badge/techonolgy-SpringWebFlux-brightgreen)
-![technology Docker](https://img.shields.io/badge/techonolgy-Docker-blue)
+![technology Java](https://img.shields.io/badge/technology-Java-red)
+![technology MongoDB](https://img.shields.io/badge/technology-MongoDB-green)
+![technology Spring WebFlux](https://img.shields.io/badge/technology-SpringWebFlux-brightgreen)
+![technology Docker](https://img.shields.io/badge/technology-Docker-blue)
 
 ## Requisitos
  * Gerenciar as informações dos jogadores (CRUD) com um find on demand;
@@ -68,6 +68,8 @@ O projeto foi feito utilizando:
     * Java Mail Sender
     * Validation
     * Lombok
+    * mapstruct
+    * 
 
 ## Visuais
 Logotipo do projeto:  
