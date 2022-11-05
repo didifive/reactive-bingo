@@ -2,6 +2,7 @@ package com.reactivebingo.api.dtos.mappers;
 
 import com.reactivebingo.api.documents.RoundDocument;
 import com.reactivebingo.api.dtos.RoundRequestDTO;
+import com.reactivebingo.api.dtos.RoundResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -25,7 +26,7 @@ public interface RoundMapper {
 
     @Mapping(target = "drawnNumbers", source = "drawnNumbers", qualifiedByName = "drawnNumberDTOSet")
     @Mapping(target = "cards", source = "cards", qualifiedByName = "cardDTOSet")
-    RoundRequestDTO toResponse(final RoundDocument document);
+    RoundResponseDTO toResponse(final RoundDocument document);
 
 }
 
