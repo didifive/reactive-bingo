@@ -9,7 +9,11 @@ import javax.validation.constraints.Size;
 public record RoundRequestDTO(@JsonProperty("name")
                               @NotBlank
                               @Size(min = 1, max = 255)
-                              String name) {
+                              String name,
+                              @JsonProperty("prize")
+                              @NotBlank
+                              @Size(min = 1, max = 255)
+                              String prize) {
 
     @Builder(toBuilder = true)
     public RoundRequestDTO {

@@ -14,6 +14,8 @@ public record RoundResponseDTO(@JsonProperty("id")
                                String id,
                                @JsonProperty("name")
                                String name,
+                               @JsonProperty("prize")
+                               String prize,
                                @JsonProperty("drawnNumbers")
                                Set<DrawnNumberDTO> drawnNumbers,
                                @JsonProperty("cards")
@@ -31,7 +33,7 @@ public record RoundResponseDTO(@JsonProperty("id")
     }
 
     public RoundDocumentBuilder toBuilder() {
-        return new RoundDocumentBuilder(id, name, drawnNumbers, cards, createdAt, updatedAt);
+        return new RoundDocumentBuilder(id, name, prize, drawnNumbers, cards, createdAt, updatedAt);
     }
 
     public Boolean isStarted() {
@@ -56,6 +58,7 @@ public record RoundResponseDTO(@JsonProperty("id")
 
         private String id;
         private String name;
+        private String prize;
         private Set<DrawnNumberDTO> drawnNumbers = new HashSet<>();
         private Set<CardDTO> cards = new HashSet<>();
         private OffsetDateTime createdAt;
@@ -68,6 +71,11 @@ public record RoundResponseDTO(@JsonProperty("id")
 
         public RoundDocumentBuilder name(final String name) {
             this.name = name;
+            return this;
+        }
+
+        public RoundDocumentBuilder prize(final String prize) {
+            this.prize = prize;
             return this;
         }
 
@@ -99,7 +107,7 @@ public record RoundResponseDTO(@JsonProperty("id")
                                     .map(DrawnNumberDTO::number)
                                     .collect(Collectors.toSet())
                                     .containsAll(card.numbers()));
-            return new RoundResponseDTO(id, name, drawnNumbers, cards, complete, createdAt, updatedAt);
+            return new RoundResponseDTO(id, name, prize, drawnNumbers, cards, complete, createdAt, updatedAt);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.reactivebingo.api.controllers.docs;
 import com.reactivebingo.api.configs.mongo.validation.MongoId;
 import com.reactivebingo.api.dtos.PlayerRequestDTO;
 import com.reactivebingo.api.dtos.PlayerResponseDTO;
+import com.reactivebingo.api.dtos.ProblemResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -52,10 +53,12 @@ public interface PlayerControllerDocs {
 
     @Operation(summary = "Endpoint para pesquisar um jogador")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "o jogador encontrado e retornado",
-                    content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
+            @ApiResponse(responseCode = "200", description = "jogador retornado"
+                    ,content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
                             , schema = @Schema(implementation = PlayerResponseDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "o jogador NÃO foi encontrado", content = {})
+            @ApiResponse(responseCode = "404", description = "o jogador não foi encontrado"
+                    , content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
+                        , schema = @Schema(implementation = ProblemResponseDTO.class))})
     })
     Mono<PlayerResponseDTO> findBy(@Parameter(description = PLAYER_ID_DESCRIPTION, example = PLAYER_ID_EXAMPLE)
                                    @PathVariable @Valid @MongoId(message = "{playerController.id}") String id);

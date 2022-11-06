@@ -16,6 +16,7 @@ import java.util.Set;
 public record RoundDocument(@Id
                             String id,
                             String name,
+                            String prize,
                             Set<DrawnNumber> drawnNumbers,
                             Set<Card> cards,
                             @CreatedDate
@@ -30,7 +31,7 @@ public record RoundDocument(@Id
     }
 
     public RoundDocumentBuilder toBuilder() {
-        return new RoundDocumentBuilder(id, name, drawnNumbers, cards, createdAt, updatedAt);
+        return new RoundDocumentBuilder(id, name, prize, drawnNumbers, cards, createdAt, updatedAt);
     }
 
     @NoArgsConstructor
@@ -39,6 +40,7 @@ public record RoundDocument(@Id
 
         private String id;
         private String name;
+        private String prize;
         private Set<DrawnNumber> drawnNumbers = new HashSet<>();
         private Set<Card> cards = new HashSet<>();
         private OffsetDateTime createdAt;
@@ -51,6 +53,11 @@ public record RoundDocument(@Id
 
         public RoundDocumentBuilder name(final String name) {
             this.name = name;
+            return this;
+        }
+
+        public RoundDocumentBuilder prize(final String prize) {
+            this.prize = prize;
             return this;
         }
 
@@ -76,7 +83,7 @@ public record RoundDocument(@Id
         }
 
         public RoundDocument build() {
-            return new RoundDocument(id, name, drawnNumbers, cards, createdAt, updatedAt);
+            return new RoundDocument(id, name, prize, drawnNumbers, cards, createdAt, updatedAt);
         }
     }
 
