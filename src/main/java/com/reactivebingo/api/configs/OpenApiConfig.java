@@ -17,8 +17,8 @@ import org.springframework.context.annotation.Configuration;
                 email = "luisczdidi@gmail.com"
         ),
                 license = @License(
-                        url = "http://www.apache.org/licenses/LICENSE-2.0.html",
-                        name = "Apache 2.0"
+                        url = "https://mit-license.org/",
+                        name = "MIT License"
                 )),
         servers = {
                 @Server(url = "http://localhost:8080/reactive-bingo", description = "local")
