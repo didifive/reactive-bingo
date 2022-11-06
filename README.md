@@ -8,9 +8,10 @@ Criar uma API de jogo de Bingo usando as seguintes tecnologias:
 ![technology Docker](https://img.shields.io/badge/technology-Docker-blue)  
 
 ![Repository language count](https://img.shields.io/github/languages/count/didifive/reactive-bingo)
+![Repository language count](https://img.shields.io/github/languages/code-size/didifive/reactive-bingo)
 [![GitHub last commit](https://img.shields.io/github/last-commit/didifive/reactive-bingo?color=blue)](https://github.com/didifive/reactive-bingo/commits/master)
 [![Made by Didi](https://img.shields.io/badge/made%20by-Didi-green)](https://www.linkedin.com/in/luis-carlos-zancanela/)
-[![Repository language count](https://img.shields.io/badge/license-MIT%20License-brightgreen?color=blue)](https://mit-license.org/)  
+![Repository license](https://img.shields.io/github/license/didifive/reactive-bingo)  
 
 ## Requisitos
  * Gerenciar as informações dos jogadores (CRUD) com um find on demand;
