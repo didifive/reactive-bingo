@@ -101,9 +101,11 @@ OpenApi - Swagger:
 
 - Rounds (Rodadas):
 
-| Método | URL       |
-|--------|-----------|
-| POST   | <>        |
+| Método | URL                                                |
+|--------|----------------------------------------------------|
+| POST   | <http://localhost:8080/reactive-bingo/rounds>      |
+| GET    | <http://localhost:8080/reactive-bingo/rounds>      |
+| GET    | <http://localhost:8080/reactive-bingo/rounds/{id}> |
 
 Para documentação, basta acessar a página de Swagger que fica disponível em <http://localhost:8080/reactive-bingo/swagger-ui.html> quando o projeto está em execução.  
 Existe também o arquivo de coleção do [Postman]: `docs/Reactive Bingo.postman_collection.json` com os endpoints para serem acessados.  

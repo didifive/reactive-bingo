@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public record CardDTO(@JsonProperty("playerId")
                       @Schema(description = "id do jogador"
@@ -17,14 +16,12 @@ public record CardDTO(@JsonProperty("playerId")
                               , type = "string")
                       String playerId,
                       @JsonProperty("numbers")
-                      @ArraySchema(schema =
-                        @Schema(description = "número da cartela"
-                                , example = "10"
-                                , type = "integer"))
+                      @ArraySchema(schema = @Schema(description = "número da cartela"
+                              , example = "10"
+                              , type = "integer"))
                       Set<Short> numbers,
                       @JsonProperty("checkedNumbers")
-                      @ArraySchema(schema =
-                      @Schema(description = "número acertado"
+                      @ArraySchema(schema = @Schema(description = "número acertado"
                               , example = "10"
                               , type = "integer"))
                       Set<Short> checkedNumbers,
@@ -40,7 +37,7 @@ public record CardDTO(@JsonProperty("playerId")
                               , format = "date-time")
                       OffsetDateTime createdAt,
                       @JsonProperty("updatedAt")
-                      @Schema(description = "data de atualização da rodada"
+                      @Schema(description = "data de atualização da cartela"
                               , example = "2022-11-05T19:40:35.0680489Z"
                               , type = "string"
                               , format = "date-time")

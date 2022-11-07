@@ -87,9 +87,8 @@ public class RoundController implements RoundControllerDocs {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public Mono<PageResponseDTO> findAll(@Valid final RoundPageRequestDTO request){
-        return null;
-//        return roundService.findOnDemand(request)
-//                .doFirst(() -> log.info("==== Finding rounds on demand with follow request {}", request))
-//                .map(page -> roundMapper.toResponse(page, request.limit()));
+        return roundService.findOnDemand(request)
+                .doFirst(() -> log.info("==== Finding rounds on demand with follow request {}", request))
+                .map(page -> roundMapper.toResponse(page, request.limit()));
     }
 }

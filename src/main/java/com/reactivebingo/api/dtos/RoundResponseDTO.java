@@ -2,6 +2,7 @@ package com.reactivebingo.api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -28,12 +29,12 @@ public record RoundResponseDTO(@JsonProperty("id")
                                        , type = "string")
                                String prize,
                                @JsonProperty("drawnNumbers")
-                               @Schema(description = "números sorteados"
-                                       , implementation = DrawnNumberDTO.class)
+                               @ArraySchema(schema = @Schema(description = "números sorteados"
+                                       , implementation = DrawnNumberDTO.class))
                                Set<DrawnNumberDTO> drawnNumbers,
                                @JsonProperty("cards")
-                               @Schema(description = "cartelas da rodada"
-                                       , implementation = CardDTO.class)
+                               @ArraySchema(schema = @Schema(description = "cartelas da rodada"
+                                       , implementation = CardDTO.class))
                                Set<CardDTO> cards,
                                @JsonProperty("complete")
                                @Schema(description = "rodada completada"

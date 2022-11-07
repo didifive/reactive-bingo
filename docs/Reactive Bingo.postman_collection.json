@@ -226,6 +226,147 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Round",
+			"item": [
+				{
+					"name": "New",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAllWithParams",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds?sentence=fia&page=0&limit=10&sortBy=EMAIL&sortDirection=DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds"
+							],
+							"query": [
+								{
+									"key": "sentence",
+									"value": "fia"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "EMAIL"
+								},
+								{
+									"key": "sortDirection",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds/636937ca13ae890e08af3822",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds",
+								"636937ca13ae890e08af3822"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

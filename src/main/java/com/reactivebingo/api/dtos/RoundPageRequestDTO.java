@@ -23,12 +23,6 @@ import static com.reactivebingo.api.dtos.enums.SortDirection.DESC;
 
 public record RoundPageRequestDTO(@JsonProperty("sentence")
                                   String sentence,
-                                  @JsonProperty("date")
-                                  String date,
-                                  @JsonProperty("minDate")
-                                  String minDate,
-                                  @JsonProperty("maxDate")
-                                  String maxDate,
                                   @PositiveOrZero
                                   @JsonProperty("page")
                                   Long page,
@@ -43,12 +37,6 @@ public record RoundPageRequestDTO(@JsonProperty("sentence")
 
     @Builder(toBuilder = true)
     public RoundPageRequestDTO {
-        Calendar rightNow = Calendar.getInstance();
-        minDate = ObjectUtils.defaultIfNull(minDate, "01-01-1970");
-        maxDate = ObjectUtils.defaultIfNull(maxDate, String.format("%d-%d-%d"
-                , rightNow.get(Calendar.DAY_OF_MONTH)
-                , rightNow.get(Calendar.MONTH)
-                , rightNow.get(Calendar.YEAR)));
         sortBy = ObjectUtils.defaultIfNull(sortBy, NAME);
         sortDirection = ObjectUtils.defaultIfNull(sortDirection, ASC);
         limit = ObjectUtils.defaultIfNull(limit, 20);
