@@ -45,7 +45,7 @@ public record PlayerPageRequestDTO(@JsonProperty("sentence")
 
     @Schema(hidden = true)
     public Long getSkip() {
-        return page > 0 ? ((page - 1) * limit) : 0;
+        return page * limit;
     }
 
 }

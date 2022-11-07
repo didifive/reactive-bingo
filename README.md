@@ -1,3 +1,9 @@
+![Repository language count](https://img.shields.io/github/languages/count/didifive/reactive-bingo)
+![Repository language count](https://img.shields.io/github/languages/code-size/didifive/reactive-bingo)
+[![GitHub last commit](https://img.shields.io/github/last-commit/didifive/reactive-bingo?color=blue)](https://github.com/didifive/reactive-bingo/commits/master)
+[![Made by Didi](https://img.shields.io/badge/made%20by-Didi-green)](https://www.linkedin.com/in/luis-carlos-zancanela/)
+![Repository license](https://img.shields.io/github/license/didifive/reactive-bingo)
+
 # Desafio do curso Spring WebFlux
 
 Criar uma API de jogo de Bingo usando as seguintes tecnologias:
@@ -5,13 +11,7 @@ Criar uma API de jogo de Bingo usando as seguintes tecnologias:
 ![technology Java](https://img.shields.io/badge/technology-Java-red)
 ![technology MongoDB](https://img.shields.io/badge/technology-MongoDB-green)
 ![technology Spring WebFlux](https://img.shields.io/badge/technology-SpringWebFlux-brightgreen)
-![technology Docker](https://img.shields.io/badge/technology-Docker-blue)  
-
-![Repository language count](https://img.shields.io/github/languages/count/didifive/reactive-bingo)
-![Repository language count](https://img.shields.io/github/languages/code-size/didifive/reactive-bingo)
-[![GitHub last commit](https://img.shields.io/github/last-commit/didifive/reactive-bingo?color=blue)](https://github.com/didifive/reactive-bingo/commits/master)
-[![Made by Didi](https://img.shields.io/badge/made%20by-Didi-green)](https://www.linkedin.com/in/luis-carlos-zancanela/)
-![Repository license](https://img.shields.io/github/license/didifive/reactive-bingo)  
+![technology Docker](https://img.shields.io/badge/technology-Docker-blue)
 
 ## Requisitos
  * Gerenciar as informações dos jogadores (CRUD) com um find on demand;
@@ -87,5 +87,27 @@ Diagrama de Classes UML:
 OpenApi - Swagger:  
 ![OpenApi - Swagger](docs/swagger.png?raw=true "OpenApi - Swagger")  
 
+## Endpoints
+
+- Players (Jogadores):  
+
+| Método | URL                                                 |
+|--------|-----------------------------------------------------|
+| POST   | <http://localhost:8080/reactive-bingo/players>      |
+| GET    | <http://localhost:8080/reactive-bingo/players>      |
+| GET    | <http://localhost:8080/reactive-bingo/players/{id}> |
+| PUT    | <http://localhost:8080/reactive-bingo/players/{id}> |
+| DELETE | <http://localhost:8080/reactive-bingo/players/{id}> |
+
+- Rounds (Rodadas):
+
+| Método | URL       |
+|--------|-----------|
+| POST   | <>        |
+
+Para documentação, basta acessar a página de Swagger que fica disponível em <http://localhost:8080/reactive-bingo/swagger-ui.html> quando o projeto está em execução.  
+Existe também o arquivo de coleção do [Postman]: `docs/Reactive Bingo.postman_collection.json` com os endpoints para serem acessados.  
+
 
 [Spring Initializr]: https://start.spring.io/
+[Postman]: https://www.postman.com/
