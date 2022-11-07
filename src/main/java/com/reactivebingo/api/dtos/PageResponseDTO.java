@@ -7,18 +7,18 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public record PlayerPageResponseDTO(@JsonProperty("currentPage")
+public record PageResponseDTO(@JsonProperty("currentPage")
                                @Schema(description = "pagina retornada", example = "1")
                                Long currentPage,
-                                    @JsonProperty("totalPages")
+                              @JsonProperty("totalPages")
                                @Schema(description = "total de páginas", example = "20")
                                Long totalPages,
-                                    @JsonProperty("totalItems")
-                               @Schema(description = "soma ", example = "quantidade de registros paginados")
+                              @JsonProperty("totalItems")
+                               @Schema(description = "soma ", example = "total de itens existentes")
                                Long totalItems,
-                                    @JsonProperty("content")
-                               @Schema(description = "jogadores da página")
-                               List<PlayerResponseDTO> content) {
+                              @JsonProperty("content")
+                               @Schema(description = "itens da página")
+                               List<?> content) {
 
     public static PlayerPageResponseDTOBuilder builder(){
         return new PlayerPageResponseDTOBuilder();
@@ -34,7 +34,7 @@ public record PlayerPageResponseDTO(@JsonProperty("currentPage")
         private Integer limit;
         private Long currentPage;
         private Long totalItems;
-        private List<PlayerResponseDTO> content;
+        private List<?> content;
 
         public PlayerPageResponseDTOBuilder limit(final Integer limit){
             this.limit = limit;
@@ -51,14 +51,14 @@ public record PlayerPageResponseDTO(@JsonProperty("currentPage")
             return this;
         }
 
-        public PlayerPageResponseDTOBuilder content(final List<PlayerResponseDTO> content){
+        public PlayerPageResponseDTOBuilder content(final List<?> content){
             this.content = content;
             return this;
         }
 
-        public PlayerPageResponseDTO build(){
+        public PageResponseDTO build(){
             var totalPages = (totalItems / limit) + ((totalItems % limit > 0) ? 1 : 0);
-            return new PlayerPageResponseDTO(currentPage, totalPages, totalItems, content);
+            return new PageResponseDTO(currentPage, totalPages, totalItems, content);
         }
 
     }

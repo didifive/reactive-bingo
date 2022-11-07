@@ -67,7 +67,7 @@ public interface PlayerControllerDocs {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "retornar os jogadores cadastrados conforme filtro",
                     content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
-                            , schema = @Schema(implementation = PlayerPageResponseDTO.class))})
+                            , schema = @Schema(implementation = PageResponseDTO.class))})
     })
     @Parameters({
             @Parameter(in = ParameterIn.QUERY
@@ -96,6 +96,6 @@ public interface PlayerControllerDocs {
                     , description = "sentido da ordenação - padrão: ASC"
                     , example = "ASC")
     })
-    Mono<PlayerPageResponseDTO> findAll(@Parameter(hidden = true) @Valid PlayerPageRequestDTO request);
+    Mono<PageResponseDTO> findAll(@Parameter(hidden = true) @Valid PlayerPageRequestDTO request);
 
 }

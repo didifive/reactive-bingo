@@ -2,8 +2,8 @@ package com.reactivebingo.api.controllers;
 
 import com.reactivebingo.api.configs.mongo.validation.MongoId;
 import com.reactivebingo.api.controllers.docs.PlayerControllerDocs;
+import com.reactivebingo.api.dtos.PageResponseDTO;
 import com.reactivebingo.api.dtos.PlayerPageRequestDTO;
-import com.reactivebingo.api.dtos.PlayerPageResponseDTO;
 import com.reactivebingo.api.dtos.PlayerRequestDTO;
 import com.reactivebingo.api.dtos.PlayerResponseDTO;
 import com.reactivebingo.api.dtos.mappers.PlayerMapper;
@@ -66,7 +66,7 @@ public class PlayerController implements PlayerControllerDocs {
 
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public Mono<PlayerPageResponseDTO> findAll(@Valid final PlayerPageRequestDTO request) {
+    public Mono<PageResponseDTO> findAll(@Valid final PlayerPageRequestDTO request) {
         return playerService.findOnDemand(request)
                 .doFirst(() -> log.info("==== Finding players on demand with follow request {}", request))
                 .map(page -> playerMapper.toResponse(page, request.limit()));
