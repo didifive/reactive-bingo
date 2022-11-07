@@ -1,6 +1,8 @@
 package com.reactivebingo.api.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -11,20 +13,44 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record RoundResponseDTO(@JsonProperty("id")
+                               @Schema(description = "id da rodada"
+                                       , example = "63668c0459dc8d40ac62a1e1"
+                                       , type = "string")
                                String id,
                                @JsonProperty("name")
+                               @Schema(description = "nome da rodada"
+                                       , example = "Bingo do carrão"
+                                       , type = "string")
                                String name,
                                @JsonProperty("prize")
+                               @Schema(description = "prêmio da rodada"
+                                       , example = "Fusca 86"
+                                       , type = "string")
                                String prize,
                                @JsonProperty("drawnNumbers")
+                               @Schema(description = "números sorteados"
+                                       , implementation = DrawnNumberDTO.class)
                                Set<DrawnNumberDTO> drawnNumbers,
                                @JsonProperty("cards")
+                               @Schema(description = "cartelas da rodada"
+                                       , implementation = CardDTO.class)
                                Set<CardDTO> cards,
                                @JsonProperty("complete")
+                               @Schema(description = "rodada completada"
+                                       , example = "false"
+                                       , type = "boolean")
                                Boolean complete,
                                @JsonProperty("createdAt")
+                               @Schema(description = "data de criação da rodada"
+                                       , example = "2022-11-05T19:40:35.0680489Z"
+                                       , type = "string"
+                                       , format = "date-time")
                                OffsetDateTime createdAt,
                                @JsonProperty("updatedAt")
+                               @Schema(description = "data de atualização da rodada"
+                                       , example = "2022-11-05T19:40:35.0680489Z"
+                                       , type = "string"
+                                       , format = "date-time")
                                OffsetDateTime updatedAt) {
 
 
@@ -36,16 +62,19 @@ public record RoundResponseDTO(@JsonProperty("id")
         return new RoundDocumentBuilder(id, name, prize, drawnNumbers, cards, createdAt, updatedAt);
     }
 
+    @JsonIgnore(value = true)
     public Boolean isStarted() {
         return !drawnNumbers.isEmpty();
     }
 
+    @JsonIgnore(value = true)
     public Boolean hasPlayer(String playerId) {
         return isStarted() &&
                 cards.stream()
                         .anyMatch(card -> card.playerId().equals(playerId));
     }
 
+    @JsonIgnore(value = true)
     public DrawnNumberDTO getLastDrawnNumber() {
         return drawnNumbers.stream()
                 .max(Comparator.comparing(DrawnNumberDTO::drawnAt))
@@ -102,11 +131,7 @@ public record RoundResponseDTO(@JsonProperty("id")
 
         public RoundResponseDTO build() {
             var complete = cards.stream()
-                    .anyMatch(card ->
-                            drawnNumbers.stream()
-                                    .map(DrawnNumberDTO::number)
-                                    .collect(Collectors.toSet())
-                                    .containsAll(card.numbers()));
+                    .anyMatch(card -> card.complete());
             return new RoundResponseDTO(id, name, prize, drawnNumbers, cards, complete, createdAt, updatedAt);
         }
     }
