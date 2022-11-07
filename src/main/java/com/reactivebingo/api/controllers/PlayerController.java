@@ -66,7 +66,7 @@ public class PlayerController implements PlayerControllerDocs {
 
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public Mono<PlayerPageResponseDTO> findAll(@Valid final PlayerPageRequestDTO request){
+    public Mono<PlayerPageResponseDTO> findAll(@Valid final PlayerPageRequestDTO request) {
         return playerService.findOnDemand(request)
                 .doFirst(() -> log.info("==== Finding players on demand with follow request {}", request))
                 .map(page -> playerMapper.toResponse(page, request.limit()));

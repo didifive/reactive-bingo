@@ -1,7 +1,7 @@
 package com.reactivebingo.api.dtos.mappers;
 
 import com.reactivebingo.api.documents.PlayerDocument;
-import com.reactivebingo.api.documents.PlayerPageDocument;
+import com.reactivebingo.api.documents.PlayerPage;
 import com.reactivebingo.api.dtos.PlayerPageResponseDTO;
 import com.reactivebingo.api.dtos.PlayerRequestDTO;
 import com.reactivebingo.api.dtos.PlayerResponseDTO;
@@ -22,6 +22,6 @@ public interface PlayerMapper {
 
     PlayerResponseDTO toResponse(final PlayerDocument document);
 
-    PlayerPageResponseDTO toResponse(final PlayerPageDocument playerPageDocument, final Integer limit);
+    PlayerPageResponseDTO toResponse(final PlayerPage playerPage, final Integer limit);
 
 }

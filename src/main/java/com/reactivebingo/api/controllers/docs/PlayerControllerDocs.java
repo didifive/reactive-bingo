@@ -1,7 +1,6 @@
 package com.reactivebingo.api.controllers.docs;
 
 import com.reactivebingo.api.configs.mongo.validation.MongoId;
-import com.reactivebingo.api.documents.PlayerPageDocument;
 import com.reactivebingo.api.dtos.*;
 import com.reactivebingo.api.dtos.enums.PlayerSortBy;
 import com.reactivebingo.api.dtos.enums.SortDirection;
@@ -55,11 +54,11 @@ public interface PlayerControllerDocs {
     @Operation(summary = "Endpoint para pesquisar um jogador")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "jogador retornado"
-                    ,content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
-                            , schema = @Schema(implementation = PlayerResponseDTO.class))}),
+                    , content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
+                    , schema = @Schema(implementation = PlayerResponseDTO.class))}),
             @ApiResponse(responseCode = "404", description = "o jogador não foi encontrado"
                     , content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
-                        , schema = @Schema(implementation = ProblemResponseDTO.class))})
+                    , schema = @Schema(implementation = ProblemResponseDTO.class))})
     })
     Mono<PlayerResponseDTO> findBy(@Parameter(description = PLAYER_ID_DESCRIPTION, example = PLAYER_ID_EXAMPLE)
                                    @PathVariable @Valid @MongoId(message = "{playerController.id}") String id);
@@ -71,31 +70,31 @@ public interface PlayerControllerDocs {
                             , schema = @Schema(implementation = PlayerPageResponseDTO.class))})
     })
     @Parameters({
-        @Parameter(in = ParameterIn.QUERY
-                , schema = @Schema(type = "string")
-                , name = "sentence"
-                , description = "texto para filtrar por nome e email (case insensitive)"
-                , example = "ana"),
-        @Parameter(in = ParameterIn.QUERY
-                , schema = @Schema(type = "integer", format = "int64", defaultValue = "0")
-                , name = "page"
-                , description = "página solicitada"
-                , example = "1"),
-        @Parameter(in = ParameterIn.QUERY
-                , schema = @Schema(type = "integer", format = "int32", minimum = "1", maximum = "50", defaultValue = "20")
-                , name = "limit"
-                , description = "tamanho da página"
-                , example = "30"),
-        @Parameter(in = ParameterIn.QUERY
-                , schema = @Schema(implementation = PlayerSortBy.class)
-                , name = "sortBy"
-                , description = "campo para ordenação - padrão: NAME"
-                , example = "NAME"),
-        @Parameter(in = ParameterIn.QUERY
-                , schema = @Schema(implementation = SortDirection.class)
-                , name = "sortDirection"
-                , description = "sentido da ordenação - padrão: ASC"
-                , example = "ASC")
+            @Parameter(in = ParameterIn.QUERY
+                    , schema = @Schema(type = "string")
+                    , name = "sentence"
+                    , description = "texto para filtrar por nome e email (case insensitive)"
+                    , example = "ana"),
+            @Parameter(in = ParameterIn.QUERY
+                    , schema = @Schema(type = "integer", format = "int64", defaultValue = "0")
+                    , name = "page"
+                    , description = "página solicitada"
+                    , example = "1"),
+            @Parameter(in = ParameterIn.QUERY
+                    , schema = @Schema(type = "integer", format = "int32", minimum = "1", maximum = "50", defaultValue = "20")
+                    , name = "limit"
+                    , description = "tamanho da página"
+                    , example = "30"),
+            @Parameter(in = ParameterIn.QUERY
+                    , schema = @Schema(implementation = PlayerSortBy.class)
+                    , name = "sortBy"
+                    , description = "campo para ordenação - padrão: NAME"
+                    , example = "NAME"),
+            @Parameter(in = ParameterIn.QUERY
+                    , schema = @Schema(implementation = SortDirection.class)
+                    , name = "sortDirection"
+                    , description = "sentido da ordenação - padrão: ASC"
+                    , example = "ASC")
     })
     Mono<PlayerPageResponseDTO> findAll(@Parameter(hidden = true) @Valid PlayerPageRequestDTO request);
 
