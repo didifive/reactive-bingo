@@ -28,7 +28,7 @@ public record PlayerResponseDTO(@JsonProperty("id")
                                         , format = "date-time")
                                 OffsetDateTime createdAt,
                                 @JsonProperty("updatedAt")
-                                @Schema(description = "data de criação do jogador"
+                                @Schema(description = "data de atualização do jogador"
                                         , example = "2022-11-05T19:40:35.0680489Z"
                                         , type = "string"
                                         , format = "date-time")

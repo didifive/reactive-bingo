@@ -17,22 +17,17 @@ import static com.reactivebingo.api.dtos.enums.SortDirection.ASC;
 import static com.reactivebingo.api.dtos.enums.SortDirection.DESC;
 
 public record PlayerPageRequestDTO(@JsonProperty("sentence")
-                                   @Schema(description = "texto para filtrar por nome e email (case insensitive)", example = "ana")
                                    String sentence,
                                    @PositiveOrZero
                                    @JsonProperty("page")
-                                   @Schema(description = "página solicitada", example = "1", defaultValue = "0")
                                    Long page,
                                    @Min(1)
                                    @Max(50)
                                    @JsonProperty("limit")
-                                   @Schema(description = "tamanho da página", example = "30", defaultValue = "20")
                                    Integer limit,
                                    @JsonProperty("sortBy")
-                                   @Schema(description = "campo para ordenação", enumAsRef = true, defaultValue = "NAME")
                                    PlayerSortBy sortBy,
                                    @JsonProperty("sortDirection")
-                                   @Schema(description = "sentido da ordenação", enumAsRef = true, defaultValue = "ASC")
                                    SortDirection sortDirection) {
 
     @Builder(toBuilder = true)
