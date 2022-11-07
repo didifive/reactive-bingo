@@ -1,7 +1,7 @@
 package com.reactivebingo.api.services;
 
+import com.reactivebingo.api.documents.Page;
 import com.reactivebingo.api.documents.PlayerDocument;
-import com.reactivebingo.api.documents.PlayerPage;
 import com.reactivebingo.api.dtos.PlayerPageRequestDTO;
 import com.reactivebingo.api.exceptions.EmailAlreadyUsedException;
 import com.reactivebingo.api.exceptions.NotFoundException;
@@ -39,11 +39,11 @@ public class PlayerService {
                 .switchIfEmpty(Mono.defer(() -> Mono.error(new NotFoundException(PLAYER_NOT_FOUND.params("email", email).getMessage()))));
     }
 
-    public Mono<PlayerPage> findOnDemand(final PlayerPageRequestDTO request) {
+    public Mono<Page> findOnDemand(final PlayerPageRequestDTO request) {
         return playerRepositoryImpl.findOnDemand(request)
                 .collectList()
                 .zipWhen(documents -> playerRepositoryImpl.count(request))
-                .map(tuple -> PlayerPage.builder()
+                .map(tuple -> Page.builder()
                         .limit(request.limit())
                         .currentPage(request.page())
                         .totalItems(tuple.getT2())
