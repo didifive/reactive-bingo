@@ -1,4 +1,4 @@
-package com.reactivebingo.api.dtos;
+package com.reactivebingo.api.dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.reactivebingo.api.dtos.enums.PlayerSortBy;
@@ -11,32 +11,27 @@ import org.springframework.data.domain.Sort;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.util.Calendar;
-import java.util.Date;
 
 import static com.reactivebingo.api.dtos.enums.PlayerSortBy.NAME;
 import static com.reactivebingo.api.dtos.enums.SortDirection.ASC;
 import static com.reactivebingo.api.dtos.enums.SortDirection.DESC;
 
-public record RoundPageRequestDTO(@JsonProperty("sentence")
-                                  String sentence,
-                                  @PositiveOrZero
-                                  @JsonProperty("page")
-                                  Long page,
-                                  @Min(1)
-                                  @Max(50)
-                                  @JsonProperty("limit")
-                                  Integer limit,
-                                  @JsonProperty("sortBy")
-                                  PlayerSortBy sortBy,
-                                  @JsonProperty("sortDirection")
-                                  SortDirection sortDirection) {
+public record PlayerPageRequestDTO(@JsonProperty("sentence")
+                                   String sentence,
+                                   @PositiveOrZero
+                                   @JsonProperty("page")
+                                   Long page,
+                                   @Min(1)
+                                   @Max(50)
+                                   @JsonProperty("limit")
+                                   Integer limit,
+                                   @JsonProperty("sortBy")
+                                   PlayerSortBy sortBy,
+                                   @JsonProperty("sortDirection")
+                                   SortDirection sortDirection) {
 
     @Builder(toBuilder = true)
-    public RoundPageRequestDTO {
+    public PlayerPageRequestDTO {
         sortBy = ObjectUtils.defaultIfNull(sortBy, NAME);
         sortDirection = ObjectUtils.defaultIfNull(sortDirection, ASC);
         limit = ObjectUtils.defaultIfNull(limit, 20);

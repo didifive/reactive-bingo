@@ -1,7 +1,9 @@
-package com.reactivebingo.api.dtos;
+package com.reactivebingo.api.dtos.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.reactivebingo.api.dtos.CardDTO;
+import com.reactivebingo.api.dtos.DrawnNumberDTO;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,7 +13,6 @@ import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public record RoundResponseDTO(@JsonProperty("id")
                                @Schema(description = "id da rodada"

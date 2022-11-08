@@ -1,7 +1,7 @@
 package com.reactivebingo.api.repositories;
 
 import com.reactivebingo.api.documents.PlayerDocument;
-import com.reactivebingo.api.dtos.PlayerPageRequestDTO;
+import com.reactivebingo.api.dtos.requests.PlayerPageRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

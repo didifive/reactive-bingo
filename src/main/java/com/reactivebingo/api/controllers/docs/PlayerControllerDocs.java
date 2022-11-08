@@ -1,9 +1,13 @@
 package com.reactivebingo.api.controllers.docs;
 
 import com.reactivebingo.api.configs.mongo.validation.MongoId;
-import com.reactivebingo.api.dtos.*;
 import com.reactivebingo.api.dtos.enums.PlayerSortBy;
 import com.reactivebingo.api.dtos.enums.SortDirection;
+import com.reactivebingo.api.dtos.requests.PlayerPageRequestDTO;
+import com.reactivebingo.api.dtos.requests.PlayerRequestDTO;
+import com.reactivebingo.api.dtos.responses.PageResponseDTO;
+import com.reactivebingo.api.dtos.responses.PlayerResponseDTO;
+import com.reactivebingo.api.dtos.responses.ProblemResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
