@@ -2,10 +2,10 @@ package com.reactivebingo.api.controllers;
 
 import com.reactivebingo.api.configs.mongo.validation.MongoId;
 import com.reactivebingo.api.controllers.docs.PlayerControllerDocs;
-import com.reactivebingo.api.dtos.PageResponseDTO;
-import com.reactivebingo.api.dtos.PlayerPageRequestDTO;
-import com.reactivebingo.api.dtos.PlayerRequestDTO;
-import com.reactivebingo.api.dtos.PlayerResponseDTO;
+import com.reactivebingo.api.dtos.responses.PageResponseDTO;
+import com.reactivebingo.api.dtos.requests.PlayerPageRequestDTO;
+import com.reactivebingo.api.dtos.requests.PlayerRequestDTO;
+import com.reactivebingo.api.dtos.responses.PlayerResponseDTO;
 import com.reactivebingo.api.dtos.mappers.PlayerMapper;
 import com.reactivebingo.api.services.PlayerService;
 import lombok.AllArgsConstructor;

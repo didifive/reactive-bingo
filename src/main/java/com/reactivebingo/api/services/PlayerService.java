@@ -2,7 +2,7 @@ package com.reactivebingo.api.services;
 
 import com.reactivebingo.api.documents.Page;
 import com.reactivebingo.api.documents.PlayerDocument;
-import com.reactivebingo.api.dtos.PlayerPageRequestDTO;
+import com.reactivebingo.api.dtos.requests.PlayerPageRequestDTO;
 import com.reactivebingo.api.exceptions.EmailAlreadyUsedException;
 import com.reactivebingo.api.exceptions.NotFoundException;
 import com.reactivebingo.api.repositories.PlayerRepository;

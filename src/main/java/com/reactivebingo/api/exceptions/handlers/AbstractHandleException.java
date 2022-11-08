@@ -1,7 +1,7 @@
 package com.reactivebingo.api.exceptions.handlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.reactivebingo.api.dtos.ProblemResponseDTO;
+import com.reactivebingo.api.dtos.responses.ProblemResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpStatus;

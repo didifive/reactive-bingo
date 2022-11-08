@@ -2,9 +2,9 @@ package com.reactivebingo.api.dtos.mappers;
 
 import com.reactivebingo.api.documents.Page;
 import com.reactivebingo.api.documents.RoundDocument;
-import com.reactivebingo.api.dtos.PageResponseDTO;
-import com.reactivebingo.api.dtos.RoundRequestDTO;
-import com.reactivebingo.api.dtos.RoundResponseDTO;
+import com.reactivebingo.api.dtos.responses.PageResponseDTO;
+import com.reactivebingo.api.dtos.requests.RoundRequestDTO;
+import com.reactivebingo.api.dtos.responses.RoundResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

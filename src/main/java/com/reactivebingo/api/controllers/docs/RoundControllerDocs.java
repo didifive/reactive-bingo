@@ -4,6 +4,12 @@ import com.reactivebingo.api.configs.mongo.validation.MongoId;
 import com.reactivebingo.api.dtos.*;
 import com.reactivebingo.api.dtos.enums.RoundSortBy;
 import com.reactivebingo.api.dtos.enums.SortDirection;
+import com.reactivebingo.api.dtos.requests.RoundPageRequestDTO;
+import com.reactivebingo.api.dtos.requests.RoundRequestDTO;
+import com.reactivebingo.api.dtos.responses.PageResponseDTO;
+import com.reactivebingo.api.dtos.responses.PlayerResponseDTO;
+import com.reactivebingo.api.dtos.responses.ProblemResponseDTO;
+import com.reactivebingo.api.dtos.responses.RoundResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -13,7 +19,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
@@ -72,9 +79,9 @@ public interface RoundControllerDocs {
                     , schema = @Schema(implementation = ProblemResponseDTO.class))})
     })
     Mono<CardDTO> generateCard(@Parameter(description = ROUND_ID_DESCRIPTION, example = ROUND_ID_EXAMPLE)
-                                        @PathVariable @Valid @MongoId(message = "{roundController.id}") final String id
-                                        , @Parameter(description = PLAYER_ID_DESCRIPTION, example = PLAYER_ID_EXAMPLE)
-                                        @PathVariable @Valid @MongoId(message = "{playerController.id}") final String playerId);
+                               @PathVariable @Valid @MongoId(message = "{roundController.id}") final String id
+            , @Parameter(description = PLAYER_ID_DESCRIPTION, example = PLAYER_ID_EXAMPLE)
+                               @PathVariable @Valid @MongoId(message = "{playerController.id}") final String playerId);
 
     @Operation(summary = "Endpoint para pesquisar cartela da rodada")
     @ApiResponses({
@@ -100,7 +107,7 @@ public interface RoundControllerDocs {
                     , schema = @Schema(implementation = ProblemResponseDTO.class))})
     })
     Mono<RoundResponseDTO> findById(@Parameter(description = ROUND_ID_DESCRIPTION, example = ROUND_ID_EXAMPLE)
-                                               @PathVariable @Valid @MongoId(message = "{roundController.id}") final String id);
+                                    @PathVariable @Valid @MongoId(message = "{roundController.id}") final String id);
 
 
     @Operation(summary = "Endpoint para buscar todos os jogadores com filtro de paginação")

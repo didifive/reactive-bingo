@@ -16,7 +16,7 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 public class JacksonConfig {
 
     @Bean
-    ObjectMapper objectMapper(){
+    ObjectMapper objectMapper() {
         return new ObjectMapper()
                 .registerModule(new JavaTimeModule())
                 .setSerializationInclusion(NON_NULL)
@@ -26,12 +26,12 @@ public class JacksonConfig {
     }
 
     @Bean
-    Jackson2JsonEncoder jackson2JsonEncoder(final ObjectMapper objectMapper){
+    Jackson2JsonEncoder jackson2JsonEncoder(final ObjectMapper objectMapper) {
         return new Jackson2JsonEncoder(objectMapper);
     }
 
     @Bean
-    Jackson2JsonDecoder jackson2JsonDecoder(final ObjectMapper objectMapper){
+    Jackson2JsonDecoder jackson2JsonDecoder(final ObjectMapper objectMapper) {
         return new Jackson2JsonDecoder(objectMapper);
     }
 }

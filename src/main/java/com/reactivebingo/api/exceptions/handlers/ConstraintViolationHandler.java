@@ -1,8 +1,8 @@
 package com.reactivebingo.api.exceptions.handlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.reactivebingo.api.dtos.ErrorFieldResponseDTO;
-import com.reactivebingo.api.dtos.ProblemResponseDTO;
+import com.reactivebingo.api.dtos.responses.ErrorFieldResponseDTO;
+import com.reactivebingo.api.dtos.responses.ProblemResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.stereotype.Component;

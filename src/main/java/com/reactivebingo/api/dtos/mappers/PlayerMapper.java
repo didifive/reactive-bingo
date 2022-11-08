@@ -1,10 +1,10 @@
 package com.reactivebingo.api.dtos.mappers;
 
-import com.reactivebingo.api.documents.PlayerDocument;
 import com.reactivebingo.api.documents.Page;
-import com.reactivebingo.api.dtos.PageResponseDTO;
-import com.reactivebingo.api.dtos.PlayerRequestDTO;
-import com.reactivebingo.api.dtos.PlayerResponseDTO;
+import com.reactivebingo.api.documents.PlayerDocument;
+import com.reactivebingo.api.dtos.responses.PageResponseDTO;
+import com.reactivebingo.api.dtos.requests.PlayerRequestDTO;
+import com.reactivebingo.api.dtos.responses.PlayerResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -15,8 +15,8 @@ public @interface MongoId {
 
     String message() default "{com.reactivebingo.api.configs.mongo.validation.MongoId.message}";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
 }

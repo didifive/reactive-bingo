@@ -16,8 +16,8 @@ import java.util.List;
 public class MongoConfig {
 
     @Bean
-    MongoCustomConversions mongoCustomConversions(){
-        final List<Converter<?,?>> converters = new ArrayList<>();
+    MongoCustomConversions mongoCustomConversions() {
+        final List<Converter<?, ?>> converters = new ArrayList<>();
         converters.add(new OffsetDateTimeToDateConverter());
         converters.add(new DateToOffsetDateTimeConverter());
         return new MongoCustomConversions(converters);
