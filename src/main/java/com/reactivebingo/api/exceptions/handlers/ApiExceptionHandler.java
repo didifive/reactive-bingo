@@ -21,10 +21,11 @@ import javax.validation.ConstraintViolationException;
 @AllArgsConstructor
 public class ApiExceptionHandler implements WebExceptionHandler {
 
-    private final PlayerInRoundHandler playerInRoundHandler;
-    private final CardsLimitReachedHandler cardsLimitReachedHandler;
     final RoundCompletedHandler roundCompletedHandler;
     final RoundStartedHandler roundStartedHandler;
+    final RoundHasNoDrawnNumberHandler roundHasNoDrawnNumberHandler;
+    private final PlayerInRoundHandler playerInRoundHandler;
+    private final CardsLimitReachedHandler cardsLimitReachedHandler;
     private final EmailAlreadyUsedHandler emailAlreadyUsedHandler;
     private final MethodNotAllowHandler methodNotAllowHandler;
     private final NotFoundHandler notFoundHandler;
@@ -42,6 +43,7 @@ public class ApiExceptionHandler implements WebExceptionHandler {
                 .onErrorResume(CardsLimitReachedException.class, e -> cardsLimitReachedHandler.handlerException(exchange, e))
                 .onErrorResume(RoundCompletedException.class, e -> roundCompletedHandler.handlerException(exchange, e))
                 .onErrorResume(RoundStartedException.class, e -> roundStartedHandler.handlerException(exchange, e))
+                .onErrorResume(RoundHasNoDrawnNumberException.class, e -> roundHasNoDrawnNumberHandler.handlerException(exchange, e))
                 .onErrorResume(EmailAlreadyUsedException.class, e -> emailAlreadyUsedHandler.handlerException(exchange, e))
                 .onErrorResume(MethodNotAllowedException.class, e -> methodNotAllowHandler.handlerException(exchange, e))
                 .onErrorResume(NotFoundException.class, e -> notFoundHandler.handlerException(exchange, e))

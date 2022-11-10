@@ -19,6 +19,7 @@ public class BaseErrorMessage {
     public static final BaseErrorMessage ROUND_STARTED = new BaseErrorMessage("round.RoundStarted");
     public static final BaseErrorMessage CARDS_LIMIT_REACHED = new BaseErrorMessage("round.CardsLimitReached");
     public static final BaseErrorMessage ROUND_COMPLETED = new BaseErrorMessage("round.RoundCompleted");
+    public static final BaseErrorMessage ROUND_HAS_NO_DRAWN_NUMBER = new BaseErrorMessage("round.RoundHasNoDrawnNumber");
 
     private final String DEFAULT_RESOURCE = "messages";
     private final String key;

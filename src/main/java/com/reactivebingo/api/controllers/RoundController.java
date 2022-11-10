@@ -55,10 +55,9 @@ public class RoundController implements RoundControllerDocs {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE, value="{id}/last-number")
     public Mono<DrawnNumberDTO> getLastNumber(@PathVariable @Valid @MongoId(message = "{roundController.id}") final String id) {
-        return null;
-//        return roundService.getLastNumber(id)
-//                .doFirst(() -> log.info("==== Finding last drawn number for a round with follow id {}", id))
-//                .map(roundMapper::toResponse);
+        return roundService.getLastNumber(id)
+                .doFirst(() -> log.info("==== Finding last drawn number for a round with follow id {}", id))
+                .map(drawnNumberMapper::toDto);
     }
 
     @Override

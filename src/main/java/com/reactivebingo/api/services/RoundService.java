@@ -220,4 +220,13 @@ public class RoundService {
                 .zipWhen(cards -> Mono.just(document))
                 .map(tuple -> cardDomainMapper.addCardsToDocument(tuple.getT1(), tuple.getT2()));
     }
+
+    public Mono<DrawnNumber> getLastNumber(String id) {
+        return findById(id)
+                .flatMap(document -> Mono.defer(() -> Mono.just(document.drawnNumbers().stream()
+                        .max(Comparator.comparing(n -> n.drawnAt()))
+                        .orElseThrow(() -> new RoundHasNoDrawnNumberException(ROUND_HAS_NO_DRAWN_NUMBER
+                                .params(id).getMessage()))))
+                );
+    }
 }
