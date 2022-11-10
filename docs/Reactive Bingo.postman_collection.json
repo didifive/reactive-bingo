@@ -117,7 +117,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/reactive-bingo/players?sentence=jo&page=0&limit=10&sortBy=EMAIL&sortDirection=DESC",
+							"raw": "http://localhost:8080/reactive-bingo/players?sentence=jo&page=0&limit=2&sortBy=EMAIL&sortDirection=DESC",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -138,7 +138,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "10"
+									"value": "2"
 								},
 								{
 									"key": "sortBy",
@@ -351,7 +351,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/reactive-bingo/rounds/636937ca13ae890e08af3822",
+							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -360,7 +360,143 @@
 							"path": [
 								"reactive-bingo",
 								"rounds",
-								"636937ca13ae890e08af3822"
+								"6369375a13ae890e08af3821"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Card for a Round",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/cards/generate/636c39ab9c15cd696c3e0540",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds",
+								"6369375a13ae890e08af3821",
+								"cards",
+								"generate",
+								"636c39ab9c15cd696c3e0540"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Card for a Player in a Round",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/cards/get/6366893f93d218088e4179e7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds",
+								"6369375a13ae890e08af3821",
+								"cards",
+								"get",
+								"6366893f93d218088e4179e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Draw Number for a Round",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/cards/generate/636c39ab9c15cd696c3e0540",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds",
+								"6369375a13ae890e08af3821",
+								"cards",
+								"generate",
+								"636c39ab9c15cd696c3e0540"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Last Drawn Number",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/last-number",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reactive-bingo",
+								"rounds",
+								"6369375a13ae890e08af3821",
+								"last-number"
 							]
 						}
 					},
