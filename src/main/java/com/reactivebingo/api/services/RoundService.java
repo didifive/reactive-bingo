@@ -156,4 +156,16 @@ public class RoundService {
                 .filter(numbers -> numbers.size() == 20)
                 .switchIfEmpty(Mono.defer(() -> Mono.error(new InvalidAmountNumbersException())));
     }
+
+    public Mono<Card> findCardByPlayerId(String id, String playerId) {
+        return findById(id)
+                .doFirst(() ->
+                        log.info("==== try to get card in Round with follow id {}" +
+                                        " to Player with follow id {}"
+                                , id, playerId))
+                .flatMap(document -> verifyPlayer(document, playerId))
+                .flatMap(document -> Flux.fromIterable(document.cards())
+                        .filter(c -> c.playerId().equals(playerId))
+                        .single());
+    }
 }

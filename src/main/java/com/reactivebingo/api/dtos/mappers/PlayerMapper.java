@@ -24,17 +24,17 @@ public interface PlayerMapper {
     @Mapping(target = "updatedAt", ignore = true)
     PlayerDocument toDocument(final PlayerRequestDTO request, final String id);
 
-    PlayerResponseDTO toResponse(final PlayerDocument document);
+    PlayerResponseDTO toPageResponse(final PlayerDocument document);
 
     @Named("playerResponseDTOList")
     default List<PlayerResponseDTO> toPlayerResponseDTOList(List<?> source) {
         return source
                 .stream()
-                .map(s -> toResponse((PlayerDocument) s))
+                .map(s -> toPageResponse((PlayerDocument) s))
                 .collect(Collectors.toList());
     }
 
     @Mapping(target = "content", qualifiedByName = "playerResponseDTOList")
-    PageResponseDTO toResponse(final Page page, final Integer limit);
+    PageResponseDTO toPageResponse(final Page page, final Integer limit);
 
 }

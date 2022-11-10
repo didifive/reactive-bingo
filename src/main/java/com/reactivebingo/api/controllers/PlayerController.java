@@ -36,7 +36,7 @@ public class PlayerController implements PlayerControllerDocs {
     public Mono<PlayerResponseDTO> save(@Valid @RequestBody final PlayerRequestDTO request) {
         return playerService.save(playerMapper.toDocument(request))
                 .doFirst(() -> log.info("==== Saving a player with follow data {}", request))
-                .map(playerMapper::toResponse);
+                .map(playerMapper::toPageResponse);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PlayerController implements PlayerControllerDocs {
             , @Valid @RequestBody final PlayerRequestDTO request) {
         return playerService.update(playerMapper.toDocument(request, id))
                 .doFirst(() -> log.info("==== Updating a player with follow info [body: {}, id: {}]", request, id))
-                .map(playerMapper::toResponse);
+                .map(playerMapper::toPageResponse);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class PlayerController implements PlayerControllerDocs {
     public Mono<PlayerResponseDTO> findBy(@PathVariable @Valid @MongoId(message = "{playerController.id}") final String id) {
         return playerService.findById(id)
                 .doFirst(() -> log.info("==== Finding a player with follow id {}", id))
-                .map(playerMapper::toResponse);
+                .map(playerMapper::toPageResponse);
     }
 
     @Override
@@ -69,6 +69,6 @@ public class PlayerController implements PlayerControllerDocs {
     public Mono<PageResponseDTO> findAll(@Valid final PlayerPageRequestDTO request) {
         return playerService.findOnDemand(request)
                 .doFirst(() -> log.info("==== Finding players on demand with follow request {}", request))
-                .map(page -> playerMapper.toResponse(page, request.limit()));
+                .map(page -> playerMapper.toPageResponse(page, request.limit()));
     }
 }
