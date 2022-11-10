@@ -1,10 +1,7 @@
 package com.reactivebingo.api.exceptions.handlers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.reactivebingo.api.exceptions.EmailAlreadyUsedException;
-import com.reactivebingo.api.exceptions.NotFoundException;
-import com.reactivebingo.api.exceptions.PlayerInRoundException;
-import com.reactivebingo.api.exceptions.ReactiveBingoException;
+import com.reactivebingo.api.exceptions.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -25,6 +22,9 @@ import javax.validation.ConstraintViolationException;
 public class ApiExceptionHandler implements WebExceptionHandler {
 
     private final PlayerInRoundHandler playerInRoundHandler;
+    private final CardsLimitReachedHandler cardsLimitReachedHandler;
+    final RoundCompletedHandler roundCompletedHandler;
+    final RoundStartedHandler roundStartedHandler;
     private final EmailAlreadyUsedHandler emailAlreadyUsedHandler;
     private final MethodNotAllowHandler methodNotAllowHandler;
     private final NotFoundHandler notFoundHandler;
@@ -39,6 +39,9 @@ public class ApiExceptionHandler implements WebExceptionHandler {
     public Mono<Void> handle(final ServerWebExchange exchange, final Throwable ex) {
         return Mono.error(ex)
                 .onErrorResume(PlayerInRoundException.class, e -> playerInRoundHandler.handlerException(exchange, e))
+                .onErrorResume(CardsLimitReachedException.class, e -> cardsLimitReachedHandler.handlerException(exchange, e))
+                .onErrorResume(RoundCompletedException.class, e -> roundCompletedHandler.handlerException(exchange, e))
+                .onErrorResume(RoundStartedException.class, e -> roundStartedHandler.handlerException(exchange, e))
                 .onErrorResume(EmailAlreadyUsedException.class, e -> emailAlreadyUsedHandler.handlerException(exchange, e))
                 .onErrorResume(MethodNotAllowedException.class, e -> methodNotAllowHandler.handlerException(exchange, e))
                 .onErrorResume(NotFoundException.class, e -> notFoundHandler.handlerException(exchange, e))

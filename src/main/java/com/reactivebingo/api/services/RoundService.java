@@ -1,23 +1,23 @@
 package com.reactivebingo.api.services;
 
 import com.reactivebingo.api.documents.Card;
+import com.reactivebingo.api.documents.DrawnNumber;
 import com.reactivebingo.api.documents.Page;
 import com.reactivebingo.api.documents.RoundDocument;
 import com.reactivebingo.api.dtos.requests.RoundPageRequestDTO;
 import com.reactivebingo.api.exceptions.*;
 import com.reactivebingo.api.mappers.CardDomainMapper;
+import com.reactivebingo.api.mappers.DrawnNumberDomainMapper;
 import com.reactivebingo.api.repositories.RoundRepository;
 import com.reactivebingo.api.repositories.RoundRepositoryImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.reactivestreams.Subscriber;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.time.OffsetDateTime;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
@@ -31,12 +31,12 @@ import static java.time.ZoneOffset.UTC;
 @AllArgsConstructor
 public class RoundService {
 
+    private final static Integer MAX_DECKS_PER_ROUND = 500;
     private final RoundRepository roundRepository;
     private final RoundRepositoryImpl roundRepositoryImpl;
     private final CardDomainMapper cardDomainMapper;
+    private final DrawnNumberDomainMapper drawnNumberDomainMapper;
     private final PlayerService playerService;
-
-    private final static Integer MAX_DECKS_PER_ROUND = 500;
 
     public Mono<RoundDocument> findById(final String id) {
         return roundRepository.findById(id)
@@ -120,7 +120,6 @@ public class RoundService {
                 .map(tuple -> cardDomainMapper.toCardWithNumber(tuple.getT1(), tuple.getT2()))
                 .zipWhen(card -> checkCardInRound(document, card))
                 .map(tuple -> cardDomainMapper.addCardToDocument(tuple.getT1(), tuple.getT2()))
-                .onErrorResume(InvalidAmountNumbersException.class, err -> createNewCard(document, playerId))
                 .onErrorResume(RepeatedNumbersException.class, err -> createNewCard(document, playerId));
     }
 
@@ -131,7 +130,7 @@ public class RoundService {
                         log.info("==== verify rule to generate a card for a round with a follow id {}"
                                 , document.id()))
                 .flatMap(c -> Flux.fromIterable(c.numbers())
-                        .filter(n-> card.numbers().contains(n))
+                        .filter(n -> card.numbers().contains(n))
                         .count()
                         .map(v -> checkLimitRepeat(v))
                 )
@@ -148,13 +147,18 @@ public class RoundService {
 
     private Mono<Set<Short>> numbersToCard(Card card) {
         return Mono.just(card)
+                .doFirst(() ->
+                        log.info("==== try to generate numbers for a follow card {}"
+                                , card))
                 .map(c -> new Random()
-                            .ints(20, 0,99)
-                            .boxed()
-                            .map(Integer::shortValue)
-                            .collect(Collectors.toSet()))
+                        .ints(20, 0, 99)
+                        .boxed()
+                        .map(Integer::shortValue)
+                        .collect(Collectors.toSet()))
                 .filter(numbers -> numbers.size() == 20)
-                .switchIfEmpty(Mono.defer(() -> Mono.error(new InvalidAmountNumbersException())));
+                .switchIfEmpty(Mono.defer(() -> Mono.error(new InvalidAmountNumbersException())))
+                .onErrorStop()
+                .onErrorResume(InvalidAmountNumbersException.class, err -> numbersToCard(card));
     }
 
     public Mono<Card> findCardByPlayerId(String id, String playerId) {
@@ -167,5 +171,53 @@ public class RoundService {
                 .flatMap(document -> Flux.fromIterable(document.cards())
                         .filter(c -> c.playerId().equals(playerId))
                         .single());
+    }
+
+    public Mono<DrawnNumber> drawNumber(String id) {
+        return findById(id)
+                .doFirst(() ->
+                        log.info("==== try to drawn number to Round with follow id {}", id))
+                .flatMap(this::checkRoundComplete)
+                .zipWhen(this::drawNumberToRound)
+                .map(tuple -> drawnNumberDomainMapper.addDrawnNumberToRound(tuple.getT1(), tuple.getT2()))
+                .flatMap(this::updateCards)
+                .flatMap(this::save)
+                .flatMap(document -> Mono.defer(() -> Mono.just(document.drawnNumbers().stream()
+                        .max(Comparator.comparing(n -> n.drawnAt()))
+                        .get())));
+    }
+
+
+    private Mono<DrawnNumber> drawNumberToRound(RoundDocument document) {
+        return Mono.just(DrawnNumber.builder()
+                        .number(Short.parseShort(String.valueOf(new Random().nextInt(99))))
+                        .drawnAt(OffsetDateTime.now(UTC)).build())
+                .doFirst(() ->
+                        log.info("==== try draw a new number to a Round with follow id {}", document.id()))
+                .filter(drawnNumber -> document.drawnNumbers().stream().noneMatch(
+                        number -> number.number().equals(drawnNumber.number())))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(new InvalidDrawnNumberException())))
+                .onErrorStop()
+                .onErrorResume(InvalidDrawnNumberException.class, err -> drawNumberToRound(document));
+    }
+
+    private Mono<RoundDocument> checkRoundComplete(RoundDocument document) {
+        return Flux.fromIterable(document.cards())
+                .doFirst(() ->
+                        log.info("==== verify if Round with follow id {} was completed", document.id()))
+                .filter(card -> card.numbers().size() == card.checkedNumbers().size())
+                .count()
+                .filter(count -> count <= 0)
+                .switchIfEmpty(Mono.defer(() -> Mono.error(new RoundCompletedException(ROUND_COMPLETED
+                        .params(document.id()).getMessage()))))
+                .thenReturn(document);
+    }
+
+    private Mono<RoundDocument> updateCards(RoundDocument document) {
+        return Flux.fromIterable(document.cards())
+                .map(card -> cardDomainMapper.toCardWithCheckedNumbers(card, document.drawnNumbers()))
+                .collect(Collectors.toSet())
+                .zipWhen(cards -> Mono.just(document))
+                .map(tuple -> cardDomainMapper.addCardsToDocument(tuple.getT1(), tuple.getT2()));
     }
 }

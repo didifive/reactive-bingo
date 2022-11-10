@@ -4,6 +4,7 @@ import com.reactivebingo.api.configs.mongo.validation.MongoId;
 import com.reactivebingo.api.controllers.docs.RoundControllerDocs;
 import com.reactivebingo.api.dtos.*;
 import com.reactivebingo.api.dtos.mappers.CardMapper;
+import com.reactivebingo.api.dtos.mappers.DrawnNumberMapper;
 import com.reactivebingo.api.dtos.mappers.RoundMapper;
 import com.reactivebingo.api.dtos.requests.RoundPageRequestDTO;
 import com.reactivebingo.api.dtos.requests.RoundRequestDTO;
@@ -31,6 +32,7 @@ public class RoundController implements RoundControllerDocs {
     public final RoundService roundService;
     public final RoundMapper roundMapper;
     public final CardMapper cardMapper;
+    public final DrawnNumberMapper drawnNumberMapper;
 
     @Override
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -45,10 +47,9 @@ public class RoundController implements RoundControllerDocs {
     @PostMapping(produces = APPLICATION_JSON_VALUE, value="{id}/draw-number")
     @ResponseStatus(CREATED)
     public Mono<DrawnNumberDTO> drawNumber(@PathVariable @Valid @MongoId(message = "{roundController.id}") final String id) {
-        return null;
-//        return roundService.drawNumber(id)
-//                .doFirst(() -> log.info("==== Draw a number for a round with follow id {}", id))
-//                .map(roundMapper::toResponse);
+        return roundService.drawNumber(id)
+                .doFirst(() -> log.info("==== Draw a number for a round with follow id {}", id))
+                .map(drawnNumberMapper::toDto);
     }
 
     @Override
