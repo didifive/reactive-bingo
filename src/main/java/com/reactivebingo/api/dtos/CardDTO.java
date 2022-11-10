@@ -35,20 +35,14 @@ public record CardDTO(@JsonProperty("playerId")
                               , example = "2022-11-05T19:40:35.0680489Z"
                               , type = "string"
                               , format = "date-time")
-                      OffsetDateTime createdAt,
-                      @JsonProperty("updatedAt")
-                      @Schema(description = "data de atualização da cartela"
-                              , example = "2022-11-05T19:40:35.0680489Z"
-                              , type = "string"
-                              , format = "date-time")
-                      OffsetDateTime updatedAt) {
+                      OffsetDateTime createdAt) {
 
     public static CardBuilder builder() {
         return new CardBuilder();
     }
 
     public CardBuilder toBuilder() {
-        return new CardBuilder(playerId, numbers, checkedNumbers, createdAt, updatedAt);
+        return new CardBuilder(playerId, numbers, checkedNumbers, createdAt);
     }
 
     @AllArgsConstructor
@@ -58,7 +52,6 @@ public record CardDTO(@JsonProperty("playerId")
         private Set<Short> numbers = new HashSet<>();
         private Set<Short> checkedNumbers = new HashSet<>();
         private OffsetDateTime createdAt;
-        private OffsetDateTime updatedAt;
 
         public CardBuilder playerId(final String playerId) {
             this.playerId = playerId;
@@ -80,14 +73,9 @@ public record CardDTO(@JsonProperty("playerId")
             return this;
         }
 
-        public CardBuilder updatedAt(final OffsetDateTime updatedAt) {
-            this.updatedAt = updatedAt;
-            return this;
-        }
-
         public CardDTO build() {
             var complete = numbers.size() == checkedNumbers.size();
-            return new CardDTO(playerId, numbers, checkedNumbers, complete, createdAt, updatedAt);
+            return new CardDTO(playerId, numbers, checkedNumbers, complete, createdAt);
         }
     }
 }

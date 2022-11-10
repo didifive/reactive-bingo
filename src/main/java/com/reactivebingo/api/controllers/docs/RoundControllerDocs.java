@@ -31,7 +31,6 @@ import static com.reactivebingo.api.controllers.docs.PlayerControllerDocs.PLAYER
 @Tag(name = "Rodada", description = "Endpoints para Rodadas")
 public interface RoundControllerDocs {
 
-    String CARD_ID_DESCRIPTION = "Identificador da Cartela";
     String ROUND_ID_DESCRIPTION = "Identificador da Rodada";
     String ROUND_ID_EXAMPLE = "63668c0459dc8d40ac62a1e1";
 
@@ -73,15 +72,15 @@ public interface RoundControllerDocs {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "retorna a cartela gerada",
                     content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
-                            , schema = @Schema(implementation = DrawnNumberDTO.class))}),
+                            , schema = @Schema(implementation = CardDTO.class))}),
             @ApiResponse(responseCode = "404", description = "a rodada ou jogador não foi encontrada(o)"
                     , content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
                     , schema = @Schema(implementation = ProblemResponseDTO.class))})
     })
     Mono<CardDTO> generateCard(@Parameter(description = ROUND_ID_DESCRIPTION, example = ROUND_ID_EXAMPLE)
-                               @PathVariable @Valid @MongoId(message = "{roundController.id}") final String id
+                               @PathVariable @Valid @MongoId(message = "{roundController.id}") String id
             , @Parameter(description = PLAYER_ID_DESCRIPTION, example = PLAYER_ID_EXAMPLE)
-                               @PathVariable @Valid @MongoId(message = "{playerController.id}") final String playerId);
+                               @PathVariable @Valid @MongoId(message = "{playerController.id}") String playerId);
 
     @Operation(summary = "Endpoint para pesquisar cartela da rodada")
     @ApiResponses({
@@ -92,10 +91,10 @@ public interface RoundControllerDocs {
                     , content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
                     , schema = @Schema(implementation = ProblemResponseDTO.class))})
     })
-    Mono<CardDTO> findCardById(@Parameter(description = ROUND_ID_DESCRIPTION, example = ROUND_ID_EXAMPLE)
-                               @PathVariable @Valid @MongoId(message = "{roundController.id}") final String id
-            , @Parameter(description = CARD_ID_DESCRIPTION, example = ROUND_ID_EXAMPLE)
-                               @PathVariable @Valid @MongoId(message = "{roundController.cardId}") final String cardId);
+    Mono<CardDTO> findCardByPlayerId(@Parameter(description = ROUND_ID_DESCRIPTION, example = ROUND_ID_EXAMPLE)
+                               @PathVariable @Valid @MongoId(message = "{roundController.id}") String id
+            , @Parameter(description = PLAYER_ID_DESCRIPTION, example = ROUND_ID_EXAMPLE)
+                               @PathVariable @Valid @MongoId(message = "{playerController.id}") String playerId);
 
     @Operation(summary = "Endpoint para pesquisar uma rodada")
     @ApiResponses({
@@ -110,7 +109,7 @@ public interface RoundControllerDocs {
                                     @PathVariable @Valid @MongoId(message = "{roundController.id}") final String id);
 
 
-    @Operation(summary = "Endpoint para buscar todos os jogadores com filtro de paginação")
+    @Operation(summary = "Endpoint para buscar todas as rodadas com filtro de paginação")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "retornar os jogadores cadastrados conforme filtro",
                     content = {@Content(mediaType = MEDIA_TYPE_APPLICATION_JSON
@@ -122,21 +121,6 @@ public interface RoundControllerDocs {
                     , name = "sentence"
                     , description = "texto para filtrar por nome ou premio (case insensitive)"
                     , example = "liquidificador"),
-            @Parameter(in = ParameterIn.QUERY
-                    , schema = @Schema(type = "string")
-                    , name = "date"
-                    , description = "data para filtrar rodada por dia"
-                    , example = "20-10-2022"),
-            @Parameter(in = ParameterIn.QUERY
-                    , schema = @Schema(type = "string", defaultValue = "01-01-1970")
-                    , name = "minDate"
-                    , description = "filtrar rodadas com data mínima conforme informado"
-                    , example = "20-10-2022"),
-            @Parameter(in = ParameterIn.QUERY
-                    , schema = @Schema(type = "string", defaultValue = "31-12-2022")
-                    , name = "maxDate"
-                    , description = "filtrar rodadas com data máxima até o informado"
-                    , example = "20-10-2022"),
             @Parameter(in = ParameterIn.QUERY
                     , schema = @Schema(type = "integer", format = "int64", defaultValue = "0")
                     , name = "page"
