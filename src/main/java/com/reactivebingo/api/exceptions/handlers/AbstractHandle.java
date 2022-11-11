@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @RequiredArgsConstructor
-public abstract class AbstractHandleException<T extends Exception> {
+public abstract class AbstractHandle<T extends Exception> {
 
     private final ObjectMapper mapper;
 

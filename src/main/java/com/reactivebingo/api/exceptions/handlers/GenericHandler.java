@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Slf4j
 @Component
-public class GenericHandler extends AbstractHandleException<Exception> {
+public class GenericHandler extends AbstractHandle<Exception> {
 
     public GenericHandler(final ObjectMapper mapper) {
         super(mapper);

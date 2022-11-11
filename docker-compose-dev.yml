@@ -34,6 +34,13 @@ services:
       - /box
     networks:
       - reactive-net
+  mailcatcher:
+    image: tophfr/mailcatcher
+    ports:
+      - "1025:25"
+      - "1080:80"
+    networks:
+      - reactive-net
 networks:
   reactive-net:
     name: custom-net

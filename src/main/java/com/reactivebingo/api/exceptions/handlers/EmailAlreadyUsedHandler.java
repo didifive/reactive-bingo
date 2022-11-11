@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Slf4j
 @Component
-public class EmailAlreadyUsedHandler extends AbstractHandleException<EmailAlreadyUsedException> {
+public class EmailAlreadyUsedHandler extends AbstractHandle<EmailAlreadyUsedException> {
 
     public EmailAlreadyUsedHandler(final ObjectMapper mapper) {
         super(mapper);

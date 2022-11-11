@@ -1,6 +1,7 @@
 package com.reactivebingo.api.dtos.mappers;
 
 import com.reactivebingo.api.documents.Card;
+import com.reactivebingo.api.documents.RoundDocument;
 import com.reactivebingo.api.dtos.CardDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
@@ -13,6 +14,7 @@ public interface CardMapper {
 
     Card toDocument(final CardDTO dto);
 
+    @Named("cardToDto")
     CardDTO toDto(final Card document);
 
     @Named("cardDTOSet")
@@ -23,4 +25,12 @@ public interface CardMapper {
                 .collect(Collectors.toSet());
     }
 
+    @Named("roundWinners")
+    default Long toRoundWinners(RoundDocument document) {
+        return document.cards()
+                .stream()
+                .map(this::toDto)
+                .filter(CardDTO::complete)
+                .count();
+    }
 }

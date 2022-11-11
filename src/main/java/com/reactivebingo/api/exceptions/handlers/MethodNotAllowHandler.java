@@ -12,7 +12,7 @@ import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 
 @Slf4j
 @Component
-public class MethodNotAllowHandler extends AbstractHandleException<MethodNotAllowedException> {
+public class MethodNotAllowHandler extends AbstractHandle<MethodNotAllowedException> {
 
     public MethodNotAllowHandler(final ObjectMapper mapper) {
         super(mapper);

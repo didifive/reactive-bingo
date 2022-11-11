@@ -10,7 +10,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface PlayerMapper {
@@ -24,17 +23,18 @@ public interface PlayerMapper {
     @Mapping(target = "updatedAt", ignore = true)
     PlayerDocument toDocument(final PlayerRequestDTO request, final String id);
 
-    PlayerResponseDTO toPageResponse(final PlayerDocument document);
+    @Named("playerToResponse")
+    PlayerResponseDTO toResponse(final PlayerDocument document);
 
     @Named("playerResponseDTOList")
     default List<PlayerResponseDTO> toPlayerResponseDTOList(List<?> source) {
         return source
                 .stream()
-                .map(s -> toPageResponse((PlayerDocument) s))
-                .collect(Collectors.toList());
+                .map(s -> toResponse((PlayerDocument) s))
+                .toList();
     }
 
     @Mapping(target = "content", qualifiedByName = "playerResponseDTOList")
-    PageResponseDTO toPageResponse(final Page page, final Integer limit);
+    PageResponseDTO toResponse(final Page page, final Integer limit);
 
 }

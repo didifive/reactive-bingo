@@ -12,7 +12,7 @@ import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 
 @Slf4j
 @Component
-public class JsonProcessingHandler extends AbstractHandleException<JsonProcessingException> {
+public class JsonProcessingHandler extends AbstractHandle<JsonProcessingException> {
 
     public JsonProcessingHandler(final ObjectMapper mapper) {
         super(mapper);

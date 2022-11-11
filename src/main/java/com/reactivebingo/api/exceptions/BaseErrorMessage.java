@@ -12,6 +12,7 @@ public class BaseErrorMessage {
     public static final BaseErrorMessage GENERIC_NOT_FOUND = new BaseErrorMessage("generic.notFound");
     public static final BaseErrorMessage GENERIC_METHOD_NOT_ALLOW = new BaseErrorMessage("generic.methodNotAllow");
     public static final BaseErrorMessage GENERIC_BAD_REQUEST = new BaseErrorMessage("generic.badRequest");
+    public static final BaseErrorMessage GENERIC_MAX_RETRIES = new BaseErrorMessage("generic.maxRetries");
     public static final BaseErrorMessage PLAYER_NOT_FOUND = new BaseErrorMessage("player.notFound");
     public static final BaseErrorMessage EMAIL_ALREADY_USED = new BaseErrorMessage("player.emailAlreadyUsed");
     public static final BaseErrorMessage ROUND_NOT_FOUND = new BaseErrorMessage("round.NotFound");
@@ -21,7 +22,7 @@ public class BaseErrorMessage {
     public static final BaseErrorMessage ROUND_COMPLETED = new BaseErrorMessage("round.RoundCompleted");
     public static final BaseErrorMessage ROUND_HAS_NO_DRAWN_NUMBER = new BaseErrorMessage("round.RoundHasNoDrawnNumber");
 
-    private final String DEFAULT_RESOURCE = "messages";
+    private static final String DEFAULT_RESOURCE = "messages";
     private final String key;
     private String[] params;
 

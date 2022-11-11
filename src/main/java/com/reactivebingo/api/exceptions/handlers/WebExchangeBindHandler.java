@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Slf4j
 @Component
-public class WebExchangeBindHandler extends AbstractHandleException<WebExchangeBindException> {
+public class WebExchangeBindHandler extends AbstractHandle<WebExchangeBindException> {
 
     private final MessageSource messageSource;
 

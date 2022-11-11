@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Slf4j
 @Component
-public class NotFoundHandler extends AbstractHandleException<NotFoundException> {
+public class NotFoundHandler extends AbstractHandle<NotFoundException> {
 
     public NotFoundHandler(final ObjectMapper mapper) {
         super(mapper);

@@ -4,3 +4,19 @@ spring:
   data:
     mongodb:
       uri: mongodb://reactive-bingo:reactive-bingo@db:27017/reactive-bingo?authSource=admin
+  mail:
+    host: mailcatcher
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          port: 25
+
+reactive-bingo:
+  mail:
+    sender: Reactive Bingo <noreply@reactivebingo.com.br>
+
+retry-config:
+  max-retries: 3
+  min-duration: 1

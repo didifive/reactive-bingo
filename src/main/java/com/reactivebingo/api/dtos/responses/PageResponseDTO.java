@@ -17,7 +17,8 @@ public record PageResponseDTO(@JsonProperty("currentPage")
                               @Schema(description = "soma ", example = "total de itens existentes")
                               Long totalItems,
                               @JsonProperty("content")
-                              @Schema(description = "itens da página")
+                              @Schema(description = "itens da página",
+                                      oneOf = {RoundResponseDTO.class, PlayerResponseDTO.class})
                               List<?> content) {
 
     public static PlayerPageResponseDTOBuilder builder() {

@@ -9,6 +9,6 @@ public interface DrawnNumberDomainMapper {
     default RoundDocument addDrawnNumberToRound(RoundDocument document, DrawnNumber drawnNumber){
         document.drawnNumbers().add(drawnNumber);
         return document;
-    };
+    }
 
 }

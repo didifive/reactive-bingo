@@ -22,7 +22,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 @AllArgsConstructor
 public class RoundRepositoryImpl {
 
-    public ReactiveMongoTemplate template;
+    private ReactiveMongoTemplate template;
 
     public Flux<RoundDocument> findOnDemand(final RoundPageRequestDTO request) {
         return Mono.just(new Query())

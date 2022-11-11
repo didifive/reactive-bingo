@@ -53,11 +53,11 @@ Criar uma API de jogo de Bingo usando as seguintes tecnologias:
    * buscar rodadas (GET /rounds)
    * buscar rodada pelo id (GET /rounds/{id})
 
-# Reactive Bingo by Luis Zancanela
+# 💯 Reactive Bingo by Luis Zancanela
 
 As informações acima são para o desafio, abaixo estarão as informações do projeto conforme desenvolvido para cumprir o desafio lançado.
 
-## Configuração
+## 🧱 Configuração
 
 O projeto foi feito utilizando:
 * IDE IntelliJ IDEA Community Edition 2022.1.1.
@@ -76,8 +76,10 @@ O projeto foi feito utilizando:
     * Lombok
     * Mapstruct
     * OpenApi
+    * Thymeleaf
+    * commons-lang, commons-collections e commons-io
 
-## Visuais
+## 🖌 Visuais
 Logotipo do projeto:  
 ![Reactive Bingo Logo](docs/logo.png?raw=true "Reactive Bingo Logo")  
 Banner do Spring personalizado:  
@@ -86,10 +88,32 @@ Diagrama de Classes UML:
 ![UML Class Diagram](docs/uml-diagram.drawio.png?raw=true "UML Class Diagram")  
 OpenApi - Swagger:  
 ![OpenApi - Swagger](docs/swagger.png?raw=true "OpenApi - Swagger")  
+Postman Collection:  
+![Postman Collection](docs/postman-collection.png?raw=true "Postman Collection")  
+Mail Catcher:  
+![Mail Catcher](docs/email-mailcatcher.png?raw=true "Mail Catcher")  
+E-mail para ganhador:  
+![E-mail para ganhador](docs/email-ganhador.png?raw=true "E-mail para ganhador")  
+![E-mail para ganhador rodapé](docs/email-rodape.png?raw=true "E-mail para ganhador rodapé")  
+E-mail para perdedor:  
+![E-mail para perdedor](docs/email-perdedor.png?raw=true "E-mail para ganhador")  
 
-## Endpoints
+## 💾 Instalação
+Clonar ou fazer download deste repositório.  
+Possuir docker e docker compose instalados. Se não possui, siga este tutorial de como [Instalar Docker CE no Linux Ubuntu]. Neste tutorial tem passo de como instalar o WSL para utilizar o Linux no Windows 10.
 
-- Players (Jogadores):  
+## 👨‍💻 Uso
+No terminal verifique se o serviço do docker está rodando e utilize o comando:
+```bash
+sudo docker compose -f docker-compose-dev.yml up
+```
+Ao executar o comando acima, o docker irá montar os containers com as imagens de Gradle, JDK17, MongoDB e MailCatcher.  
+Após a aplicação terminar o início, é possível acessar o Swagger pelo endereço: <http://localhost:8080/reactive-bingo/swagger-ui.html>.  
+Para conferir emails gerados e enviados pelo sistema, utilize o MailCatcher disponível no endereço: <http://localhost:1080>
+
+## 📡 Endpoints
+
+🙋‍♂ Players (Jogadores):  
 
 | Método | URL                                                 |
 |--------|-----------------------------------------------------|
@@ -99,17 +123,23 @@ OpenApi - Swagger:
 | PUT    | <http://localhost:8080/reactive-bingo/players/{id}> |
 | DELETE | <http://localhost:8080/reactive-bingo/players/{id}> |
 
-- Rounds (Rodadas):
+🎰 Rounds (Rodadas):
 
-| Método | URL                                                |
-|--------|----------------------------------------------------|
-| POST   | <http://localhost:8080/reactive-bingo/rounds>      |
-| GET    | <http://localhost:8080/reactive-bingo/rounds>      |
-| GET    | <http://localhost:8080/reactive-bingo/rounds/{id}> |
+| Método | URL                                                                          |
+|--------|------------------------------------------------------------------------------|
+| POST   | <http://localhost:8080/reactive-bingo/rounds>                                |
+| GET    | <http://localhost:8080/reactive-bingo/rounds>                                |
+| GET    | <http://localhost:8080/reactive-bingo/rounds/{id}>                           |
+| POST   | <http://localhost:8080/reactive-bingo/rounds/{id}/cards/generate/{playerId}> |
+| GET    | <http://localhost:8080/reactive-bingo/rounds/{id}/cards/get/{playerId}>      |
+| POST   | <http://localhost:8080/reactive-bingo/rounds/{id}/draw-number>               |
+| GET    | <http://localhost:8080/reactive-bingo/rounds/{id}/last-number>               |
 
-Para documentação, basta acessar a página de Swagger que fica disponível em <http://localhost:8080/reactive-bingo/swagger-ui.html> quando o projeto está em execução.  
-Existe também o arquivo de coleção do [Postman]: `docs/Reactive Bingo.postman_collection.json` com os endpoints para serem acessados.  
 
+❤ Feito por [Luis Carlos Zancanela] 🚀  
+☎ Dúvida, sugestão ou problema é só entrar em contato.
 
 [Spring Initializr]: https://start.spring.io/
 [Postman]: https://www.postman.com/
+[Luis Carlos Zancanela]: https://www.linkedin.com/in/luis-carlos-zancanela/
+[Instalar Docker CE no Linux Ubuntu]: https://luiscarlosdidi.notion.site/Instalar-Docker-CE-no-Linux-Ubuntu-1668006799f7484292cae106a9c8234c

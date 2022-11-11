@@ -22,7 +22,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 @AllArgsConstructor
 public class PlayerRepositoryImpl {
 
-    public ReactiveMongoTemplate template;
+    private ReactiveMongoTemplate template;
 
 
     public Flux<PlayerDocument> findOnDemand(final PlayerPageRequestDTO request) {

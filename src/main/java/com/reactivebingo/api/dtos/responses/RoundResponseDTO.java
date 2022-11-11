@@ -133,7 +133,7 @@ public record RoundResponseDTO(@JsonProperty("id")
 
         public RoundResponseDTO build() {
             var complete = cards.stream()
-                    .anyMatch(card -> card.complete());
+                    .anyMatch(CardDTO::complete);
             return new RoundResponseDTO(id, name, prize, drawnNumbers, cards, complete, createdAt, updatedAt);
         }
     }

@@ -40,7 +40,7 @@ public class RoundController implements RoundControllerDocs {
     public Mono<RoundResponseDTO> save(@Valid @RequestBody final RoundRequestDTO request) {
         return roundService.save(roundMapper.toDocument(request))
                 .doFirst(() -> log.info("==== Saving a Round with follow data {}", request))
-                .map(roundMapper::toPageResponse);
+                .map(roundMapper::toResponse);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class RoundController implements RoundControllerDocs {
     public Mono<RoundResponseDTO> findById(@PathVariable @Valid @MongoId(message = "{roundController.id}") final String id) {
         return roundService.findById(id)
                 .doFirst(() -> log.info("==== Finding a Round with follow id {}", id))
-                .map(roundMapper::toPageResponse);
+                .map(roundMapper::toResponse);
     }
 
     @Override
@@ -92,6 +92,6 @@ public class RoundController implements RoundControllerDocs {
     public Mono<PageResponseDTO> findAll(@Valid final RoundPageRequestDTO request){
         return roundService.findOnDemand(request)
                 .doFirst(() -> log.info("==== Finding rounds on demand with follow request {}", request))
-                .map(page -> roundMapper.toPageResponse(page, request.limit()));
+                .map(page -> roundMapper.toResponse(page, request.limit()));
     }
 }

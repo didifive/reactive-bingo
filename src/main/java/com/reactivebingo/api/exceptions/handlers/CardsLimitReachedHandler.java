@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Component
 @Slf4j
-public class CardsLimitReachedHandler extends AbstractHandleException<CardsLimitReachedException> {
+public class CardsLimitReachedHandler extends AbstractHandle<CardsLimitReachedException> {
 
     public CardsLimitReachedHandler(final ObjectMapper mapper) {
         super(mapper);

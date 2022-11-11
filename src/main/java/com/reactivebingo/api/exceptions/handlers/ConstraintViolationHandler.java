@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Slf4j
 @Component
-public class ConstraintViolationHandler extends AbstractHandleException<ConstraintViolationException> {
+public class ConstraintViolationHandler extends AbstractHandle<ConstraintViolationException> {
 
     public ConstraintViolationHandler(final ObjectMapper mapper) {
         super(mapper);

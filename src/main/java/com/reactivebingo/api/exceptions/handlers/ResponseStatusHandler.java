@@ -12,7 +12,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Slf4j
 @Component
-public class ResponseStatusHandler extends AbstractHandleException<ResponseStatusException> {
+public class ResponseStatusHandler extends AbstractHandle<ResponseStatusException> {
 
     public ResponseStatusHandler(final ObjectMapper mapper) {
         super(mapper);

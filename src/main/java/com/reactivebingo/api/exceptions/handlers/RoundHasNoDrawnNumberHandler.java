@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Component
 @Slf4j
-public class RoundHasNoDrawnNumberHandler extends AbstractHandleException<RoundHasNoDrawnNumberException> {
+public class RoundHasNoDrawnNumberHandler extends AbstractHandle<RoundHasNoDrawnNumberException> {
 
     public RoundHasNoDrawnNumberHandler(final ObjectMapper mapper) {
         super(mapper);

@@ -12,7 +12,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Slf4j
 @Component
-public class ReactiveBingoHandler extends AbstractHandleException<ReactiveBingoException> {
+public class ReactiveBingoHandler extends AbstractHandle<ReactiveBingoException> {
 
     public ReactiveBingoHandler(final ObjectMapper mapper) {
         super(mapper);

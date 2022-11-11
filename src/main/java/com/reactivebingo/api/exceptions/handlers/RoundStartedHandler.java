@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Component
 @Slf4j
-public class RoundStartedHandler extends AbstractHandleException<RoundStartedException> {
+public class RoundStartedHandler extends AbstractHandle<RoundStartedException> {
 
     public RoundStartedHandler(final ObjectMapper mapper) {
         super(mapper);

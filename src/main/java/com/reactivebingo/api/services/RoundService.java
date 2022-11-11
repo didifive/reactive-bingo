@@ -4,6 +4,7 @@ import com.reactivebingo.api.documents.Card;
 import com.reactivebingo.api.documents.DrawnNumber;
 import com.reactivebingo.api.documents.Page;
 import com.reactivebingo.api.documents.RoundDocument;
+import com.reactivebingo.api.dtos.mappers.MailMapper;
 import com.reactivebingo.api.dtos.requests.RoundPageRequestDTO;
 import com.reactivebingo.api.exceptions.*;
 import com.reactivebingo.api.mappers.CardDomainMapper;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 import java.time.OffsetDateTime;
 import java.util.Comparator;
@@ -31,12 +33,14 @@ import static java.time.ZoneOffset.UTC;
 @AllArgsConstructor
 public class RoundService {
 
-    private final static Integer MAX_DECKS_PER_ROUND = 500;
+    private static final Integer MAX_DECKS_PER_ROUND = 500;
     private final RoundRepository roundRepository;
     private final RoundRepositoryImpl roundRepositoryImpl;
     private final CardDomainMapper cardDomainMapper;
     private final DrawnNumberDomainMapper drawnNumberDomainMapper;
+    private final MailMapper mailMapper;
     private final PlayerService playerService;
+    private final MailService mailService;
 
     public Mono<RoundDocument> findById(final String id) {
         return roundRepository.findById(id)
@@ -85,7 +89,7 @@ public class RoundService {
                                         " a round with follow id {}"
                                 , playerId, document.id()))
                 .zipWhen(doc -> playerService.findById(playerId))
-                .map(tuple -> tuple.getT1())
+                .map(Tuple2::getT1)
                 .filter(d -> d.cards().stream().noneMatch(card -> card.playerId().equals(playerId)))
                 .switchIfEmpty(Mono.defer(() -> Mono.error(new PlayerInRoundException(PLAYER_IN_ROUND
                         .params(playerId, document.id()).getMessage()))));
@@ -132,7 +136,7 @@ public class RoundService {
                 .flatMap(c -> Flux.fromIterable(c.numbers())
                         .filter(n -> card.numbers().contains(n))
                         .count()
-                        .map(v -> checkLimitRepeat(v))
+                        .map(this::checkLimitRepeat)
                 )
                 .count()
                 .thenReturn(document);
@@ -167,9 +171,9 @@ public class RoundService {
                         log.info("==== try to get card in Round with follow id {}" +
                                         " to Player with follow id {}"
                                 , id, playerId))
-                .flatMap(document -> verifyPlayer(document, playerId))
                 .flatMap(document -> Flux.fromIterable(document.cards())
                         .filter(c -> c.playerId().equals(playerId))
+                        .switchIfEmpty(Mono.defer(() -> Mono.error(new NotFoundException(PLAYER_NOT_FOUND.params("id", playerId).getMessage()))))
                         .single());
     }
 
@@ -182,11 +186,11 @@ public class RoundService {
                 .map(tuple -> drawnNumberDomainMapper.addDrawnNumberToRound(tuple.getT1(), tuple.getT2()))
                 .flatMap(this::updateCards)
                 .flatMap(this::save)
+                .flatMap(this::checkRoundNowCompletedToNotify)
                 .flatMap(document -> Mono.defer(() -> Mono.just(document.drawnNumbers().stream()
-                        .max(Comparator.comparing(n -> n.drawnAt()))
+                        .max(Comparator.comparing(DrawnNumber::drawnAt))
                         .get())));
     }
-
 
     private Mono<DrawnNumber> drawNumberToRound(RoundDocument document) {
         return Mono.just(DrawnNumber.builder()
@@ -217,16 +221,35 @@ public class RoundService {
         return Flux.fromIterable(document.cards())
                 .map(card -> cardDomainMapper.toCardWithCheckedNumbers(card, document.drawnNumbers()))
                 .collect(Collectors.toSet())
-                .zipWhen(cards -> Mono.just(document))
-                .map(tuple -> cardDomainMapper.addCardsToDocument(tuple.getT1(), tuple.getT2()));
+                .thenReturn(document);
     }
 
     public Mono<DrawnNumber> getLastNumber(String id) {
         return findById(id)
                 .flatMap(document -> Mono.defer(() -> Mono.just(document.drawnNumbers().stream()
-                        .max(Comparator.comparing(n -> n.drawnAt()))
+                        .max(Comparator.comparing(DrawnNumber::drawnAt))
                         .orElseThrow(() -> new RoundHasNoDrawnNumberException(ROUND_HAS_NO_DRAWN_NUMBER
                                 .params(id).getMessage()))))
                 );
+    }
+
+    private Mono<RoundDocument> checkRoundNowCompletedToNotify(RoundDocument roundDocument) {
+        return Mono.just(roundDocument)
+                .flatMap(this::checkRoundComplete)
+                .onErrorResume(RoundCompletedException.class, e -> Mono.just(roundDocument)
+                        .onTerminateDetach()
+                        .doOnSuccess(this::notifyPlayers));
+    }
+
+    private void notifyPlayers(final RoundDocument document) {
+        Flux.fromIterable(document.cards())
+                .doFirst(() ->
+                        log.info("==== try to notify Players"))
+                .flatMap(card ->
+                        Mono.just(card)
+                                .zipWhen(c -> playerService.findById(c.playerId())))
+                .map(tuple -> mailMapper.toDTO(document, tuple.getT1(), tuple.getT2()))
+                .flatMap(mailService::send)
+                .subscribe();
     }
 }

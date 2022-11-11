@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Component
 @Slf4j
-public class PlayerInRoundHandler extends AbstractHandleException<PlayerInRoundException> {
+public class PlayerInRoundHandler extends AbstractHandle<PlayerInRoundException> {
 
     public PlayerInRoundHandler(final ObjectMapper mapper) {
         super(mapper);
