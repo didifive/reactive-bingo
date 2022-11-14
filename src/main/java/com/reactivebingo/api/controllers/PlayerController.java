@@ -2,12 +2,13 @@ package com.reactivebingo.api.controllers;
 
 import com.reactivebingo.api.configs.mongo.validation.MongoId;
 import com.reactivebingo.api.controllers.docs.PlayerControllerDocs;
-import com.reactivebingo.api.dtos.responses.PageResponseDTO;
+import com.reactivebingo.api.dtos.mappers.PlayerMapper;
 import com.reactivebingo.api.dtos.requests.PlayerPageRequestDTO;
 import com.reactivebingo.api.dtos.requests.PlayerRequestDTO;
+import com.reactivebingo.api.dtos.responses.PageResponseDTO;
 import com.reactivebingo.api.dtos.responses.PlayerResponseDTO;
-import com.reactivebingo.api.dtos.mappers.PlayerMapper;
 import com.reactivebingo.api.services.PlayerService;
+import com.reactivebingo.api.services.queries.PlayerQueryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +29,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class PlayerController implements PlayerControllerDocs {
 
     public final PlayerService playerService;
+    public final PlayerQueryService playerQueryService;
     public final PlayerMapper playerMapper;
 
     @Override
@@ -59,7 +61,7 @@ public class PlayerController implements PlayerControllerDocs {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE, value = "{id}")
     public Mono<PlayerResponseDTO> findBy(@PathVariable @Valid @MongoId(message = "{playerController.id}") final String id) {
-        return playerService.findById(id)
+        return playerQueryService.findById(id)
                 .doFirst(() -> log.info("==== Finding a player with follow id {}", id))
                 .map(playerMapper::toResponse);
     }
@@ -67,7 +69,7 @@ public class PlayerController implements PlayerControllerDocs {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public Mono<PageResponseDTO> findAll(@Valid final PlayerPageRequestDTO request) {
-        return playerService.findOnDemand(request)
+        return playerQueryService.findOnDemand(request)
                 .doFirst(() -> log.info("==== Finding players on demand with follow request {}", request))
                 .map(page -> playerMapper.toResponse(page, request.limit()));
     }

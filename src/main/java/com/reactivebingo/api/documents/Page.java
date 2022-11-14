@@ -3,6 +3,8 @@ package com.reactivebingo.api.documents;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public record Page(Long currentPage,
@@ -24,7 +26,7 @@ public record Page(Long currentPage,
         private Integer limit;
         private Long currentPage;
         private Long totalItems;
-        private List<?> content;
+        private List<?> content = new ArrayList<>();
 
         public PageBuilder limit(final Integer limit) {
             this.limit = limit;
