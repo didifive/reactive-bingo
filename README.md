@@ -77,7 +77,6 @@ O projeto foi feito utilizando:
     * Mapstruct
     * OpenApi
     * Thymeleaf
-    * commons-lang, commons-collections e commons-io
 
 ## 🖌 Visuais
 Logotipo do projeto:  
@@ -105,7 +104,7 @@ Possuir docker e docker compose instalados. Se não possui, siga este tutorial d
 ## 👨‍💻 Uso
 No terminal verifique se o serviço do docker está rodando e utilize o comando:
 ```bash
-sudo docker compose -f docker-compose-dev.yml up
+docker compose -f docker-compose-dev.yml up
 ```
 Ao executar o comando acima, o docker irá montar os containers com as imagens de Gradle, JDK17, MongoDB e MailCatcher.  
 Após a aplicação terminar o início, é possível acessar o Swagger pelo endereço: <http://localhost:8080/reactive-bingo/swagger-ui.html>.  
@@ -135,6 +134,7 @@ Para conferir emails gerados e enviados pelo sistema, utilize o MailCatcher disp
 | POST   | <http://localhost:8080/reactive-bingo/rounds/{id}/draw-number>               |
 | GET    | <http://localhost:8080/reactive-bingo/rounds/{id}/last-number>               |
 
+---
 
 ❤ Feito por [Luis Carlos Zancanela] 🚀  
 ☎ Dúvida, sugestão ou problema é só entrar em contato.

@@ -1,7 +1,7 @@
 package com.reactivebingo.api.dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.reactivebingo.api.dtos.enums.PlayerSortBy;
+import com.reactivebingo.api.dtos.enums.RoundSortBy;
 import com.reactivebingo.api.dtos.enums.SortDirection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
 
-import static com.reactivebingo.api.dtos.enums.PlayerSortBy.NAME;
+import static com.reactivebingo.api.dtos.enums.RoundSortBy.NAME;
 import static com.reactivebingo.api.dtos.enums.SortDirection.ASC;
 import static com.reactivebingo.api.dtos.enums.SortDirection.DESC;
 
@@ -26,7 +26,7 @@ public record RoundPageRequestDTO(@JsonProperty("sentence")
                                   @JsonProperty("limit")
                                   Integer limit,
                                   @JsonProperty("sortBy")
-                                  PlayerSortBy sortBy,
+                                  RoundSortBy sortBy,
                                   @JsonProperty("sortDirection")
                                   SortDirection sortDirection) {
 

@@ -19,7 +19,7 @@ services:
     networks:
       - reactive-net
   db:
-    image: mongo:5.0.9
+    image: mongo:4.4.16
     environment:
       MONGO_INITDB_ROOT_USERNAME: reactive-bingo
       MONGO_INITDB_ROOT_PASSWORD: reactive-bingo
