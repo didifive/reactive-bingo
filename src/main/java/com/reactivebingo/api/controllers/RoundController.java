@@ -11,6 +11,7 @@ import com.reactivebingo.api.dtos.requests.RoundRequestDTO;
 import com.reactivebingo.api.dtos.responses.PageResponseDTO;
 import com.reactivebingo.api.dtos.responses.RoundResponseDTO;
 import com.reactivebingo.api.services.RoundService;
+import com.reactivebingo.api.services.queries.RoundQueryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +31,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class RoundController implements RoundControllerDocs {
 
     public final RoundService roundService;
+    public final RoundQueryService roundQueryService;
     public final RoundMapper roundMapper;
     public final CardMapper cardMapper;
     public final DrawnNumberMapper drawnNumberMapper;
@@ -55,7 +57,7 @@ public class RoundController implements RoundControllerDocs {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE, value="{id}/last-number")
     public Mono<DrawnNumberDTO> getLastNumber(@PathVariable @Valid @MongoId(message = "{roundController.id}") final String id) {
-        return roundService.getLastNumber(id)
+        return roundQueryService.getLastDrawnNumber(id)
                 .doFirst(() -> log.info("==== Finding last drawn number for a round with follow id {}", id))
                 .map(drawnNumberMapper::toDto);
     }
@@ -74,7 +76,7 @@ public class RoundController implements RoundControllerDocs {
     @GetMapping(produces = APPLICATION_JSON_VALUE, value="{id}/cards/get/{playerId}")
     public Mono<CardDTO> findCardByPlayerId(@PathVariable @Valid @MongoId(message = "{roundController.id}") final String id
             , @PathVariable @Valid @MongoId(message = "{playerController.id}") final String playerId) {
-        return roundService.findCardByPlayerId(id, playerId)
+        return roundQueryService.findCardByPlayerId(id, playerId)
                 .doFirst(() -> log.info("==== Findind a card of the Player with follow id {} in a Round with follow id {}", playerId, id))
                 .map(cardMapper::toDto);
     }
@@ -82,7 +84,7 @@ public class RoundController implements RoundControllerDocs {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE, value = "{id}")
     public Mono<RoundResponseDTO> findById(@PathVariable @Valid @MongoId(message = "{roundController.id}") final String id) {
-        return roundService.findById(id)
+        return roundQueryService.findById(id)
                 .doFirst(() -> log.info("==== Finding a Round with follow id {}", id))
                 .map(roundMapper::toResponse);
     }
@@ -90,7 +92,7 @@ public class RoundController implements RoundControllerDocs {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public Mono<PageResponseDTO> findAll(@Valid final RoundPageRequestDTO request){
-        return roundService.findOnDemand(request)
+        return roundQueryService.findOnDemand(request)
                 .doFirst(() -> log.info("==== Finding rounds on demand with follow request {}", request))
                 .map(page -> roundMapper.toResponse(page, request.limit()));
     }
