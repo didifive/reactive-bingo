@@ -96,6 +96,10 @@ E-mail para ganhador:
 ![E-mail para ganhador rodapé](docs/email-rodape.png?raw=true "E-mail para ganhador rodapé")  
 E-mail para perdedor:  
 ![E-mail para perdedor](docs/email-perdedor.png?raw=true "E-mail para ganhador")  
+Cobertura de testes realizada pelo IntelliJ:  
+![Cobertura de testes IntelliJ](docs/test_coverage_IntelliJ.png?raw=true "Cobertura de testes IntelliJ")  
+Cobertura de testes pelo plugin do Jacoco:  
+![Cobertura de testes Jacoco](docs/test_coverage_jacoco.png?raw=true "Cobertura de testes Jacoco")
 
 ## 💾 Instalação
 Clonar ou fazer download deste repositório.  

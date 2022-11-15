@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2fcb5b70-037f-43a4-b377-fa27318aa425",
+		"_postman_id": "48ae1556-8d50-4f57-bb9b-4821af40809b",
 		"name": "Reactive Bingo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16508898"
@@ -69,21 +69,9 @@
 				},
 				{
 					"name": "FindAll",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao@email.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/reactive-bingo/players",
 							"protocol": "http",
@@ -101,21 +89,9 @@
 				},
 				{
 					"name": "FindAllWithParams",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao@email.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/reactive-bingo/players?sentence=jo&page=0&limit=2&sortBy=EMAIL&sortDirection=DESC",
 							"protocol": "http",
@@ -261,21 +237,9 @@
 				},
 				{
 					"name": "FindAll",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao@email.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/reactive-bingo/rounds",
 							"protocol": "http",
@@ -293,21 +257,9 @@
 				},
 				{
 					"name": "FindAllWithParams",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao@email.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/reactive-bingo/rounds?sentence=fia&page=0&limit=10&sortBy=EMAIL&sortDirection=DESC",
 							"protocol": "http",
@@ -371,15 +323,6 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/cards/generate/636c39ab9c15cd696c3e0540",
 							"protocol": "http",
@@ -401,21 +344,9 @@
 				},
 				{
 					"name": "Get Card for a Player in a Round",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/cards/get/6366893f93d218088e4179e7",
 							"protocol": "http",
@@ -440,17 +371,8 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/cards/generate/636c39ab9c15cd696c3e0540",
+							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/draw-number",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -460,9 +382,7 @@
 								"reactive-bingo",
 								"rounds",
 								"6369375a13ae890e08af3821",
-								"cards",
-								"generate",
-								"636c39ab9c15cd696c3e0540"
+								"draw-number"
 							]
 						}
 					},
@@ -470,21 +390,9 @@
 				},
 				{
 					"name": "Get Last Drawn Number",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Bingo do carrão 2\",\r\n  \"prize\": \"Fiat 147\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/reactive-bingo/rounds/6369375a13ae890e08af3821/last-number",
 							"protocol": "http",
