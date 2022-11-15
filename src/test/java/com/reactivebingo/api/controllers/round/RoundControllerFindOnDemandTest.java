@@ -1,17 +1,19 @@
-package com.reactivebingo.api.controllers.player;
+package com.reactivebingo.api.controllers.round;
 
 import com.reactivebingo.api.controllers.AbstractControllerTest;
-import com.reactivebingo.api.controllers.PlayerController;
+import com.reactivebingo.api.controllers.RoundController;
 import com.reactivebingo.api.documents.Page;
-import com.reactivebingo.api.dtos.mappers.PlayerMapperImpl;
-import com.reactivebingo.api.dtos.requests.PlayerPageRequestDTO;
+import com.reactivebingo.api.dtos.mappers.CardMapperImpl;
+import com.reactivebingo.api.dtos.mappers.DrawnNumberMapperImpl;
+import com.reactivebingo.api.dtos.mappers.RoundMapperImpl;
+import com.reactivebingo.api.dtos.requests.RoundPageRequestDTO;
 import com.reactivebingo.api.dtos.responses.ErrorFieldResponseDTO;
 import com.reactivebingo.api.dtos.responses.PageResponseDTO;
 import com.reactivebingo.api.dtos.responses.ProblemResponseDTO;
-import com.reactivebingo.api.services.PlayerService;
-import com.reactivebingo.api.services.queries.PlayerQueryService;
-import com.reactivebingo.api.utils.factorybot.documents.PlayerPageDocumentFactoryBot;
-import com.reactivebingo.api.utils.factorybot.dtos.requests.PlayerPageRequestFactoryBot;
+import com.reactivebingo.api.services.RoundService;
+import com.reactivebingo.api.services.queries.RoundQueryService;
+import com.reactivebingo.api.utils.factorybot.documents.RoundPageDocumentFactoryBot;
+import com.reactivebingo.api.utils.factorybot.dtos.requests.RoundPageRequestFactoryBot;
 import com.reactivebingo.api.utils.request.RequestBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,35 +36,37 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-@ContextConfiguration(classes = {PlayerMapperImpl.class})
-@WebFluxTest(PlayerController.class)
-class PlayerControllerFindOnDemandTest extends AbstractControllerTest {
+@ContextConfiguration(classes = {RoundMapperImpl.class
+        , CardMapperImpl.class
+        , DrawnNumberMapperImpl.class})
+@WebFluxTest(RoundController.class)
+class RoundControllerFindOnDemandTest extends AbstractControllerTest {
 
     @MockBean
-    private PlayerService userService;
+    private RoundService roundService;
     @MockBean
-    private PlayerQueryService playerQueryService;
+    private RoundQueryService roundQueryService;
     private RequestBuilder<PageResponseDTO> pageResponseDTORequestBuilder;
     private RequestBuilder<ProblemResponseDTO> problemResponseDTORequestBuilder;
 
     @BeforeEach
     void setup(){
-        pageResponseDTORequestBuilder = pageResponseDTORequestBuilder(applicationContext, "/players");
-        problemResponseDTORequestBuilder = problemResponseDTORequestBuilder(applicationContext, "/players");
+        pageResponseDTORequestBuilder = pageResponseDTORequestBuilder(applicationContext, "/rounds");
+        problemResponseDTORequestBuilder = problemResponseDTORequestBuilder(applicationContext, "/rounds");
     }
 
     private static Stream<Page> findOnDemandTest(){
         return Stream.of(
-                PlayerPageDocumentFactoryBot.builder().build(),
-                PlayerPageDocumentFactoryBot.builder().emptyPage().build()
+                RoundPageDocumentFactoryBot.builder().build(),
+                RoundPageDocumentFactoryBot.builder().emptyPage().build()
         );
     }
 
     @ParameterizedTest
     @MethodSource
     void findOnDemandTest(final Page pageDocument){
-        var queryParams = PlayerPageRequestFactoryBot.builder().build();
-        when(playerQueryService.findOnDemand(any(PlayerPageRequestDTO.class))).thenReturn(Mono.just(pageDocument));
+        var queryParams = RoundPageRequestFactoryBot.builder().build();
+        when(roundQueryService.findOnDemand(any(RoundPageRequestDTO.class))).thenReturn(Mono.just(pageDocument));
         pageResponseDTORequestBuilder.uri(uriBuilder -> uriBuilder
                         .queryParam("page", queryParams.page())
                         .queryParam("limit", queryParams.limit())
@@ -77,7 +81,7 @@ class PlayerControllerFindOnDemandTest extends AbstractControllerTest {
     }
 
     private static Stream<Arguments> checkConstraintsTest(){
-        var invalidPageQueryParam = PlayerPageRequestFactoryBot.builder().negativePage().build();
+        var invalidPageQueryParam = RoundPageRequestFactoryBot.builder().negativePage().build();
         Function<UriBuilder, URI> invalidPage = uriBuilder -> uriBuilder
                 .queryParam("page", invalidPageQueryParam.page())
                 .queryParam("limit", invalidPageQueryParam.limit())
@@ -85,7 +89,7 @@ class PlayerControllerFindOnDemandTest extends AbstractControllerTest {
                 .queryParam("sortBy", invalidPageQueryParam.sortBy())
                 .queryParam("sortDirection", invalidPageQueryParam.sortDirection())
                 .build();
-        var lessZeroLimitQueryParam = PlayerPageRequestFactoryBot.builder().lessThanZeroLimit().build();
+        var lessZeroLimitQueryParam = RoundPageRequestFactoryBot.builder().lessThanZeroLimit().build();
         Function<UriBuilder, URI> lessZeroLimit = uriBuilder -> uriBuilder
                 .queryParam("page", lessZeroLimitQueryParam.page())
                 .queryParam("limit", lessZeroLimitQueryParam.limit())
@@ -93,7 +97,7 @@ class PlayerControllerFindOnDemandTest extends AbstractControllerTest {
                 .queryParam("sortBy", lessZeroLimitQueryParam.sortBy())
                 .queryParam("sortDirection", lessZeroLimitQueryParam.sortDirection())
                 .build();
-        var greaterFiftyQueryParam = PlayerPageRequestFactoryBot.builder().greaterThanFiftyLimit().build();
+        var greaterFiftyQueryParam = RoundPageRequestFactoryBot.builder().greaterThanFiftyLimit().build();
         Function<UriBuilder, URI> greaterFifty = uriBuilder -> uriBuilder
                 .queryParam("page", greaterFiftyQueryParam.page())
                 .queryParam("limit", greaterFiftyQueryParam.limit())

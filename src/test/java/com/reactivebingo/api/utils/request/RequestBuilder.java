@@ -1,8 +1,12 @@
 package com.reactivebingo.api.utils.request;
 
+import com.reactivebingo.api.documents.Card;
+import com.reactivebingo.api.dtos.CardDTO;
+import com.reactivebingo.api.dtos.DrawnNumberDTO;
 import com.reactivebingo.api.dtos.responses.PageResponseDTO;
 import com.reactivebingo.api.dtos.responses.PlayerResponseDTO;
 import com.reactivebingo.api.dtos.responses.ProblemResponseDTO;
+import com.reactivebingo.api.dtos.responses.RoundResponseDTO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.util.UriBuilder;
@@ -32,25 +36,25 @@ public class RequestBuilder<B> {
         return new RequestBuilder<>(applicationContext, baseUri, PlayerResponseDTO.class);
     }
 
-    public static RequestBuilder<PageResponseDTO> playerPageResponseDTORequestBuilder(final ApplicationContext applicationContext,
-                                                                                      final String baseUri) {
+    public static RequestBuilder<PageResponseDTO> pageResponseDTORequestBuilder(final ApplicationContext applicationContext,
+                                                                                final String baseUri) {
         return new RequestBuilder<>(applicationContext, baseUri, PageResponseDTO.class);
     }
 
-//    public static RequestBuilder<DeckResponse> deckResponseRequestBuilder(final ApplicationContext applicationContext,
-//                                                                       final String baseUri){
-//        return new RequestBuilder<>(applicationContext, baseUri, DeckResponse.class);
-//    }
+    public static RequestBuilder<RoundResponseDTO> roundResponseDTORequestBuilder(final ApplicationContext applicationContext,
+                                                                                  final String baseUri) {
+        return new RequestBuilder<>(applicationContext, baseUri, RoundResponseDTO.class);
+    }
 
-//    public static RequestBuilder<QuestionResponse> questionResponseRequestBuilder(final ApplicationContext applicationContext,
-//                                                                                  final String baseUri){
-//        return new RequestBuilder<>(applicationContext, baseUri, QuestionResponse.class);
-//    }
-//
-//    public static RequestBuilder<AnswerQuestionResponse> answerQuestionResponseRequestBuilder(final ApplicationContext applicationContext,
-//                                                                                        final String baseUri){
-//        return new RequestBuilder<>(applicationContext, baseUri, AnswerQuestionResponse.class);
-//    }
+    public static RequestBuilder<CardDTO> cardDTORequestBuilder(final ApplicationContext applicationContext,
+                                                                          final String baseUri) {
+        return new RequestBuilder<>(applicationContext, baseUri, CardDTO.class);
+    }
+
+    public static RequestBuilder<DrawnNumberDTO> drawnNumberDTORequestBuilder(final ApplicationContext applicationContext,
+                                                                final String baseUri) {
+        return new RequestBuilder<>(applicationContext, baseUri, DrawnNumberDTO.class);
+    }
 
     private final WebTestClient webTestClient;
     private Function<UriBuilder, URI> uriFunction;

@@ -74,7 +74,8 @@ public record CardDTO(@JsonProperty("playerId")
         }
 
         public CardDTO build() {
-            var complete = numbers.size() == checkedNumbers.size();
+            var complete = (numbers.size() == 20
+                    && numbers.size() == checkedNumbers.size());
             return new CardDTO(playerId, numbers, checkedNumbers, complete, createdAt);
         }
     }
