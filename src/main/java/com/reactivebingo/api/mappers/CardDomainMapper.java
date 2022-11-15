@@ -30,9 +30,4 @@ public interface CardDomainMapper {
         return card;
     }
 
-    default RoundDocument addCardsToDocument(Set<Card> cards, RoundDocument document) {
-        document.cards().addAll(cards);
-        return document;
-    }
-
 }

@@ -64,25 +64,6 @@ public record RoundResponseDTO(@JsonProperty("id")
         return new RoundDocumentBuilder(id, name, prize, drawnNumbers, cards, createdAt, updatedAt);
     }
 
-    @JsonIgnore(value = true)
-    public Boolean isStarted() {
-        return !drawnNumbers.isEmpty();
-    }
-
-    @JsonIgnore(value = true)
-    public Boolean hasPlayer(String playerId) {
-        return isStarted() &&
-                cards.stream()
-                        .anyMatch(card -> card.playerId().equals(playerId));
-    }
-
-    @JsonIgnore(value = true)
-    public DrawnNumberDTO getLastDrawnNumber() {
-        return drawnNumbers.stream()
-                .max(Comparator.comparing(DrawnNumberDTO::drawnAt))
-                .orElseThrow();
-    }
-
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RoundDocumentBuilder {
