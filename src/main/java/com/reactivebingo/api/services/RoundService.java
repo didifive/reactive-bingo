@@ -11,6 +11,7 @@ import com.reactivebingo.api.repositories.RoundRepository;
 import com.reactivebingo.api.services.queries.PlayerQueryService;
 import com.reactivebingo.api.services.queries.RoundQueryService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -31,7 +32,7 @@ import static java.time.ZoneOffset.UTC;
 @AllArgsConstructor
 public class RoundService {
 
-    private static final Integer MAX_DECKS_PER_ROUND = 120;
+    public static final Integer MAX_DECKS_PER_ROUND = 120;
     private final RoundRepository roundRepository;
     private final RoundQueryService roundQueryService;
     private final CardDomainMapper cardDomainMapper;
@@ -52,8 +53,8 @@ public class RoundService {
                                         " to player with follow id {}"
                                 , id, playerId))
                 .flatMap(document -> verifyPlayer(document, playerId))
-                .flatMap(this::verifyRoundNotStart)
                 .flatMap(this::verifyCardsLimitReached)
+                .flatMap(this::verifyRoundNotStarted)
                 .flatMap(document -> createNewCard(document, playerId))
                 .flatMap(this::save)
                 .flatMap(document -> Flux.fromIterable(document.cards())
@@ -74,7 +75,7 @@ public class RoundService {
                         .params(playerId, document.id()).getMessage()))));
     }
 
-    private Mono<RoundDocument> verifyRoundNotStart(RoundDocument document) {
+    private Mono<RoundDocument> verifyCardsLimitReached(RoundDocument document) {
         return Mono.just(document)
                 .doFirst(() ->
                         log.info("==== verify if a round with a follow id {} reached the limit of cards"
@@ -84,7 +85,7 @@ public class RoundService {
                         .params(document.id()).getMessage()))));
     }
 
-    private Mono<RoundDocument> verifyCardsLimitReached(RoundDocument document) {
+    private Mono<RoundDocument> verifyRoundNotStarted(RoundDocument document) {
         return Mono.just(document)
                 .doFirst(() ->
                         log.info("==== verify if a round with follow id {} is not started"
@@ -128,7 +129,7 @@ public class RoundService {
                 .then();
     }
 
-    private Mono<Set<Short>> numbersToCard(Card card) {
+    protected Mono<Set<Short>> numbersToCard(Card card) {
         return Mono.just(card)
                 .doFirst(() ->
                         log.info("==== try to generate numbers for a follow card {}"

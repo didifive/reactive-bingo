@@ -11,9 +11,10 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static com.reactivebingo.api.services.RoundService.MAX_DECKS_PER_ROUND;
 import static com.reactivebingo.api.utils.factorybot.RandomData.getFaker;
-import static java.time.ZoneOffset.UTC;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -27,16 +28,16 @@ public class RoundDocumentFactoryBot {
 
         private final String name;
         private final String prize;
-        private String id;
         private final Set<DrawnNumber> drawnNumbers;
         private final Set<Card> cards;
+        private String id;
         private OffsetDateTime createdAt;
         private OffsetDateTime updatedAt;
 
         public RoundDocumentFactoryBotBuilder() {
             var faker = getFaker();
             this.id = ObjectId.get().toString();
-            this.name = faker.name().name();
+            this.name = faker.lorem().characters(1, 255);
             this.prize = faker.lorem().characters(1, 255);
             this.drawnNumbers = new HashSet<>();
             this.cards = new HashSet<>();
@@ -63,7 +64,7 @@ public class RoundDocumentFactoryBot {
                 if (this.drawnNumbers.stream().noneMatch(drawnNumber ->
                         drawnNumber.number().equals(randomNumber))) {
                     var drawNumber = DrawnNumber.builder()
-                            .drawnAt(OffsetDateTime.now(UTC))
+                            .drawnAt(OffsetDateTime.now())
                             .number(randomNumber)
                             .build();
                     this.drawnNumbers.add(drawNumber);
@@ -75,9 +76,19 @@ public class RoundDocumentFactoryBot {
         public RoundDocumentFactoryBotBuilder withCardToPlayer(String playerId) {
             this.cards.clear();
             this.cards.add(Card.builder()
+                    .numbers(getRandomNumbersSet(20))
+                    .createdAt(OffsetDateTime.now())
                     .playerId(playerId)
                     .build());
             return this;
+        }
+
+        private Set<Short> getRandomNumbersSet(int limit) {
+            Set<Short> randomNumbers = new HashSet<>();
+            while (randomNumbers.size() < limit) {
+                randomNumbers.add(Short.parseShort(String.valueOf(getFaker().number().numberBetween(0, 99))));
+            }
+            return randomNumbers;
         }
 
         public RoundDocumentFactoryBotBuilder withCompletedCard() {
@@ -106,6 +117,33 @@ public class RoundDocumentFactoryBot {
                     .checkedNumbers(new HashSet<>(cardNumbers.stream()
                             .toList().subList(0, 18)))
                     .build());
+            return this;
+        }
+
+        public RoundDocumentFactoryBotBuilder withCardsLimitsReached() {
+            this.cards.clear();
+            this.cards.addAll(Stream.generate(() -> Card.builder().playerId(ObjectId.get().toString()).build())
+                    .limit(MAX_DECKS_PER_ROUND)
+                    .collect(Collectors.toSet()));
+            return this;
+        }
+
+        public RoundDocumentFactoryBotBuilder withCards(Integer limit) {
+            this.cards.clear();
+            while (this.cards.size() < limit) {
+                Set<Short> cardNumbers = new HashSet<>();
+                while (cardNumbers.size() < 20) {
+                    var actualSize = cardNumbers.size();
+                    cardNumbers.addAll(Stream.generate(() ->
+                                    Short.parseShort(String.valueOf(getFaker().number().numberBetween(0, 99))))
+                            .limit(20 - actualSize)
+                            .collect(Collectors.toSet()));
+                }
+                this.cards.add(Card.builder()
+                        .playerId(ObjectId.get().toString())
+                        .numbers(cardNumbers)
+                        .build());
+            }
             return this;
         }
 

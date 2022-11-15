@@ -12,7 +12,10 @@ import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 
 import java.util.List;
 
+import static org.mapstruct.InjectionStrategy.CONSTRUCTOR;
+
 @Mapper(componentModel = "spring"
+        , injectionStrategy = CONSTRUCTOR
         , uses = {CardMapper.class, DrawnNumberMapper.class})
 public interface RoundMapper {
 
